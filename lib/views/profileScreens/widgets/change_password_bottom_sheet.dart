@@ -1,3 +1,4 @@
+import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/views/profileScreens/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -121,7 +122,7 @@ class _ChangePasswordBottomSheetState extends State<ChangePasswordBottomSheet> {
                   textColor: Colors.white,
                   minWidth: 100,
                   height: 50,
-                  color: Colors.red,
+                  color: AppColors.purple,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(20),

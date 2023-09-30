@@ -1,3 +1,5 @@
+import 'package:chat_buddy/constants/app_colors.dart';
+import 'package:chat_buddy/controller/user_controller.dart';
 import 'package:chat_buddy/views/profileScreens/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +16,15 @@ class _EditProfileDetailsBottomSheetState
     extends State<EditProfileDetailsBottomSheet> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  UserController userController = Get.put(UserController());
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    emailController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -94,11 +105,17 @@ class _EditProfileDetailsBottomSheetState
                 ),
                 MaterialButton(
                   visualDensity: VisualDensity.compact,
-                  onPressed: () {},
+                  onPressed: () {
+                    userController.updateUser(
+                      username: usernameController.text,
+                      email: emailController.text,
+                    );
+                    Get.back();
+                  },
                   textColor: Colors.white,
                   minWidth: 100,
                   height: 50,
-                  color: Colors.red,
+                  color: AppColors.purple,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(20),

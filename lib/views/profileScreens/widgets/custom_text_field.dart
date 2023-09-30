@@ -10,12 +10,14 @@ class CustomTextField extends StatefulWidget {
     required this.controller,
     this.autovalidateMode,
     this.isPassword = true,
+    this.textInputType,
   });
 
   final String label;
   final String hint;
   final String? Function(String?) validator;
   final AutovalidateMode? autovalidateMode;
+  final TextInputType? textInputType;
   final TextEditingController controller;
   final bool isPassword;
 
@@ -40,6 +42,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         const SizedBox(height: 8),
         TextFormField(
+          keyboardType: widget.textInputType,
           controller: widget.controller,
           obscureText: widget.isPassword ? obscureText : false,
           autovalidateMode: widget.autovalidateMode,
