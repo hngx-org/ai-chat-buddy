@@ -37,6 +37,10 @@ dependencies:
   get: ^4.6.6
   connectivity_plus: ^4.0.2
   hive_flutter: ^1.1.0
+  cached_network_image: ^3.3.0
+  material_design_icons_flutter: ^7.0.7296
+  flutter_spinkit: ^5.2.0
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
