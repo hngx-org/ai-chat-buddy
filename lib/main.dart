@@ -1,10 +1,5 @@
 import 'package:chat_buddy/constants/app_colors.dart';
-import 'package:chat_buddy/constants/app_widgets.dart';
-import 'package:chat_buddy/views/authscreens/check_mail.dart';
-import 'package:chat_buddy/views/authscreens/enter_new_password.dart';
-import 'package:chat_buddy/views/authscreens/forgot_password.dart';
-import 'package:chat_buddy/views/authscreens/login_screen.dart';
-import 'package:chat_buddy/views/authscreens/sign_up_screen.dart';
+import 'package:chat_buddy/views/profileScreens/profile_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,12 +14,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         appBarTheme: AppBarTheme(
-          color: AppColors.primaryColor,
-          iconTheme: IconThemeData(color: AppColors.tertiaryColor),
+          color: Colors.transparent,
+          foregroundColor: AppColors.white,
+          iconTheme: IconThemeData(color: AppColors.white),
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.light,
             statusBarColor: AppColors.primaryColor,
@@ -32,13 +28,14 @@ class MyApp extends StatelessWidget {
         ),
 
         inputDecorationTheme: InputDecorationTheme(
-            hintStyle: TextStyle(
-                color: AppColors
-                    .textColor)), //scaffoldBackgroundColor: Colors.transparent,
+          hintStyle: TextStyle(
+            color: AppColors.textColor,
+          ),
+        ), //scaffoldBackgroundColor: Colors.transparent,
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: EnterNewPassword(),
+      home: const ProfileScreen(),
     );
   }
 }
