@@ -1,7 +1,5 @@
 import 'package:chat_buddy/constants/app_colors.dart';
-import 'package:chat_buddy/views/authscreens/login.dart';
 import 'package:chat_buddy/views/profileScreens/profile_screen.dart';
-import 'package:chat_buddy/views/profileScreens/subscription_details_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,16 +26,15 @@ class MyApp extends StatelessWidget {
             statusBarColor: AppColors.primaryColor,
           ),
         ),
-        scaffoldBackgroundColor: Colors.transparent,
+
+        inputDecorationTheme: InputDecorationTheme(
+            hintStyle: TextStyle(
+                color: AppColors
+                    .textColor)), //scaffoldBackgroundColor: Colors.transparent,
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
       home: const ProfileScreen(),
-      // initialRoute: '/',
-      // routes: {
-      //   '/loginScreen': (context) => const GradientBackground(child: Center()),
-      //   '/homeScreen': (context) => const GradientBackground(child: Center()),
-      // },
     );
   }
 }

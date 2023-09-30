@@ -2,9 +2,10 @@ import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/constants/app_widgets.dart';
 import 'package:chat_buddy/views/authscreens/auth_screen_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +21,14 @@ class SignUpScreen extends StatelessWidget {
               ),
               ChatBuddyText(
                 largeText: "Chat Buddy",
-                smallText: "Create a New Account",
+                smallText: "Please Login To Your Account",
               ),
               const SizedBox(
                 height: 50,
               ),
               const InfoFilelds(
-                hintText: 'Enter your Name',
+                hintText: 'Enter your email',
                 icon: Icon(Icons.person),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              const InfoFilelds(
-                hintText: "Enter your Email Address",
-                icon: Icon(Icons.email),
               ),
               const SizedBox(
                 height: 30,
@@ -43,17 +37,27 @@ class SignUpScreen extends StatelessWidget {
                 hintText: "Enter your password",
                 icon: Icon(Icons.lock),
               ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Forgot Password?',
+                      style:
+                          TextStyle(fontSize: 15, color: AppColors.buttonColor),
+                    )),
+              ),
               const SizedBox(height: 30),
               const AuthScreenButtons(
                 onTap: null,
-                text: 'Create Account',
+                text: 'Login',
               ),
               const SizedBox(
-                height: 60,
+                height: 100,
               ),
               const InLineTexts(
-                  firstText: 'Already have an account?',
-                  secondText: 'Login',
+                  firstText: 'Dont have an account?',
+                  secondText: 'Sign Up',
                   onpressed: null)
             ],
           ),
