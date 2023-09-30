@@ -1,6 +1,7 @@
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/constants/app_widgets.dart';
 import 'package:chat_buddy/views/authscreens/login_screen.dart';
+import 'package:chat_buddy/views/authscreens/sign_up_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,11 +27,15 @@ class MyApp extends StatelessWidget {
             statusBarColor: AppColors.primaryColor,
           ),
         ),
-        //scaffoldBackgroundColor: Colors.transparent,
+
+        inputDecorationTheme: InputDecorationTheme(
+            hintStyle: TextStyle(
+                color: AppColors
+                    .textColor)), //scaffoldBackgroundColor: Colors.transparent,
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: SignUpScreen(),
     );
   }
 }
