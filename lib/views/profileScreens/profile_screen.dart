@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chat_buddy/constants/app_widgets.dart';
 import 'package:chat_buddy/controller/user_controller.dart';
 import 'package:chat_buddy/views/profileScreens/about_page.dart';
 import 'package:chat_buddy/views/profileScreens/subscription_details_screen.dart';
@@ -6,7 +7,6 @@ import 'package:chat_buddy/views/profileScreens/widgets/change_password_bottom_s
 import 'package:chat_buddy/views/profileScreens/widgets/custom_profile_icon.dart';
 import 'package:chat_buddy/views/profileScreens/widgets/destructive_action_dialog.dart';
 import 'package:chat_buddy/views/profileScreens/widgets/edit_profile_details_bottom_sheet.dart';
-import 'package:chat_buddy/widgets/gradient_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';

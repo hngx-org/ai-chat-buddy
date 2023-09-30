@@ -28,9 +28,10 @@ class MyApp extends StatelessWidget {
         ),
 
         inputDecorationTheme: InputDecorationTheme(
-            hintStyle: TextStyle(
-                color: AppColors
-                    .textColor)), //scaffoldBackgroundColor: Colors.transparent,
+          hintStyle: TextStyle(
+            color: AppColors.textColor,
+          ),
+        ), //scaffoldBackgroundColor: Colors.transparent,
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
