@@ -1,5 +1,10 @@
 import 'package:chat_buddy/constants/app_colors.dart';
-import 'package:chat_buddy/views/authscreens/login.dart';
+import 'package:chat_buddy/constants/app_widgets.dart';
+import 'package:chat_buddy/views/authscreens/check_mail.dart';
+import 'package:chat_buddy/views/authscreens/enter_new_password.dart';
+import 'package:chat_buddy/views/authscreens/forgot_password.dart';
+import 'package:chat_buddy/views/authscreens/login_screen.dart';
+import 'package:chat_buddy/views/authscreens/sign_up_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +19,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         appBarTheme: AppBarTheme(
@@ -25,47 +30,15 @@ class MyApp extends StatelessWidget {
             statusBarColor: AppColors.primaryColor,
           ),
         ),
-        scaffoldBackgroundColor: Colors.transparent,
+
+        inputDecorationTheme: InputDecorationTheme(
+            hintStyle: TextStyle(
+                color: AppColors
+                    .textColor)), //scaffoldBackgroundColor: Colors.transparent,
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const GradientBackground(child: LoginPage(child: Center())),
-      initialRoute: '/',
-      routes: {
-        '/loginScreen': (context) => const GradientBackground(child: Center()),
-        '/homeScreen': (context) => const GradientBackground(child: Center()),
-      },
-    );
-  }
-}
-
-class GradientBackground extends StatelessWidget {
-  final Widget child;
-
-  const GradientBackground({
-    super.key,
-    required this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              Color.fromARGB(255, 83, 31, 117),
-              Color.fromARGB(255, 18, 28, 136),
-            ],
-          ),
-        ),
-        child: child,
-      ),
+      home: EnterNewPassword(),
     );
   }
 }
