@@ -16,24 +16,24 @@ class LoginScreen extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20.0, right: 20),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
               ChatBuddyText(
                 largeText: "Chat Buddy",
                 smallText: "Please Login To Your Account",
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
-              InfoFilelds(
+              const InfoFilelds(
                 hintText: 'Enter your email',
                 icon: Icon(Icons.person),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              InfoFilelds(
+              const InfoFilelds(
                 hintText: "Enter your password",
                 icon: Icon(Icons.lock),
               ),
@@ -47,15 +47,15 @@ class LoginScreen extends StatelessWidget {
                           TextStyle(fontSize: 15, color: AppColors.buttonColor),
                     )),
               ),
-              SizedBox(height: 30),
-              AuthScreenButtons(
+              const SizedBox(height: 30),
+              const AuthScreenButtons(
                 onTap: null,
                 text: 'Login',
               ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
-              InLineTexts(
+              const InLineTexts(
                   firstText: 'Dont have an account?',
                   secondText: 'Sign Up',
                   onpressed: null)

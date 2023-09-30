@@ -15,45 +15,45 @@ class SignUpScreen extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20.0, right: 20),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
               ChatBuddyText(
                 largeText: "Chat Buddy",
                 smallText: "Create a New Account",
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
-              InfoFilelds(
+              const InfoFilelds(
                 hintText: 'Enter your Name',
                 icon: Icon(Icons.person),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              InfoFilelds(
+              const InfoFilelds(
                 hintText: "Enter your Email Address",
                 icon: Icon(Icons.email),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              InfoFilelds(
+              const InfoFilelds(
                 hintText: "Enter your password",
                 icon: Icon(Icons.lock),
               ),
-              SizedBox(height: 30),
-              AuthScreenButtons(
+              const SizedBox(height: 30),
+              const AuthScreenButtons(
                 onTap: null,
-                text: 'Login',
+                text: 'Create Account',
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
-              InLineTexts(
-                  firstText: 'Dont have an account?',
-                  secondText: 'Sign Up',
+              const InLineTexts(
+                  firstText: 'Already have an account?',
+                  secondText: 'Login',
                   onpressed: null)
             ],
           ),

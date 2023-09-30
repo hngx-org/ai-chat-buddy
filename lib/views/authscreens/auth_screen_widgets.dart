@@ -72,7 +72,7 @@ class AuthScreenButtons extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 3,
       height: MediaQuery.of(context).size.height / 12,
       decoration: BoxDecoration(
-        color: AppColors.buttonColor,
+        color: Color.fromARGB(255, 209, 175, 175),
         borderRadius: BorderRadius.circular(15),
       ),
       child: InkWell(

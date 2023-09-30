@@ -1,5 +1,8 @@
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/constants/app_widgets.dart';
+import 'package:chat_buddy/views/authscreens/check_mail.dart';
+import 'package:chat_buddy/views/authscreens/enter_new_password.dart';
+import 'package:chat_buddy/views/authscreens/forgot_password.dart';
 import 'package:chat_buddy/views/authscreens/login_screen.dart';
 import 'package:chat_buddy/views/authscreens/sign_up_screen.dart';
 import 'package:flutter/services.dart';
@@ -35,7 +38,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: SignUpScreen(),
+      home: EnterNewPassword(),
     );
   }
 }
