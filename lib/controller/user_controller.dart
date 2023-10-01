@@ -1,14 +1,15 @@
+import 'dart:convert';
+
+import 'package:chat_buddy/helper/loading_widget.dart';
 import 'package:get/get.dart';
 import 'package:chat_buddy/helper/auth_helper.dart';
 import 'package:chat_buddy/mock/user_data.dart';
 import 'package:chat_buddy/model/user_model.dart';
+import 'package:hng_authentication/authentication.dart';
 
 class UserController extends GetxController {
-  Rx<UserModel> _user = UserModel(
-    username: 'ehi-j',
-    email: 'kadiriworkspace@gmail.com',
-    password: 'topsecretpassword',
-  ).obs;
+  late Rx<UserModel> _user;
+
   String accessToken = '';
 
   get username => _user.value.username;
@@ -22,6 +23,7 @@ class UserController extends GetxController {
           : 'Free Account';
 
   AuthHelper authHelper = AuthHelper();
+  final authRepository = Authentication();
 
   updateLastSubscription() {
     _user.value.updateLastSubscription();
@@ -38,32 +40,34 @@ class UserController extends GetxController {
   }
 
   loginUser({
-    required String username,
     required String email,
     required String password,
   }) async {
-    // user = UserModel(
-    //   username: email,
-    //   password: password,
-    // );
-    userData['user4'] = {
-      'username': username,
-      'email': email,
-      'password': password,
-    };
-    _user.value = UserModel.fromMap(userData['user4']);
+    final result = await authRepository.signIn(email, password);
+    if (result['error'] != 'Resource not Found') {
+      // final data = json.decode(result.body);
+      print(result);
+      return null;
+    } else {
+      print('Login Error');
+      return 'eeeeeeeeee';
+    }
   }
 
-  registerUser(
-      {required String username,
-      required String email,
-      required String password}) async {
-    userData['user4'] = {
-      'username': username,
-      'email': email,
-      'password': password,
-    };
-    _user.value = UserModel.fromMap(userData['user4']);
+  signupUser({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    final result = await authRepository.signUp(email, name, password);
+    if (result['error'] != 'Bad Request') {
+      // final data = json.decode(result.body);
+      print(result);
+      return null;
+    } else {
+      print(result);
+      return 'eeeeeeeeee';
+    }
   }
 
   changePassword({required String password}) {
@@ -72,6 +76,6 @@ class UserController extends GetxController {
 
   logoutUser() async {
     userData.clear();
-    accessToken = '';
+    await authRepository.logout(email);
   }
 }

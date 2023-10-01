@@ -1,4 +1,5 @@
 import 'package:chat_buddy/constants/app_widgets.dart';
+import 'package:chat_buddy/views/authscreens/auth_screen_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/views/chatscreens/chat_screen.dart';
@@ -34,30 +35,11 @@ class LandingScreen extends StatelessWidget {
               SizedBox(
                 height: 300,
               ),
-              ElevatedButton(
-                onPressed: () {
+              AuthScreenButtons(
+                text: 'Explore ChatBuddy',
+                onTap: () {
                   Get.to(() => ChatScreen());
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                ),
-                child: SizedBox(
-                  width: 300,
-                  height: 48,
-                  child: Center(
-                    child: Text(
-                      'Explore ChatBuddy',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.white,
-                      ),
-                    ),
-                  ),
-                ),
               ),
             ])),
       ),

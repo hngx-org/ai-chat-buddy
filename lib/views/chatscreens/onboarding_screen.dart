@@ -1,4 +1,5 @@
 import 'package:chat_buddy/constants/app_colors.dart';
+import 'package:chat_buddy/views/authscreens/auth_screen_widgets.dart';
 import 'package:chat_buddy/views/authscreens/login_screen.dart';
 import 'package:chat_buddy/views/chatscreens/landing_page_screen.dart';
 import 'package:chat_buddy/views/chatscreens/chat_screen.dart';
@@ -38,9 +39,7 @@ class OnboardingScreen extends StatelessWidget {
               title: 'ChatBuddy',
               description: 'Ready to grow your life to the next level.',
               imagePath: 'lib/assets/onboarding.png',
-              onPressed: () {
-                Get.to(() => LoginScreen());
-              },
+              onPressed: () {},
             ),
           ],
         ),
@@ -102,20 +101,11 @@ class OnboardingPage extends StatelessWidget {
               ),
               SizedBox(height: 50),
               if (onPressed != null)
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primaryColor),
-                  onPressed: onPressed,
-                  child: SizedBox(
-                    width: 200,
-                    height: 48,
-                    child: Center(
-                      child: Text(
-                        'Get Started',
-                        style: TextStyle(fontSize: 18, color: AppColors.white),
-                      ),
-                    ),
-                  ),
+                AuthScreenButtons(
+                  text: 'Get Started',
+                  onTap: () {
+                    Get.to(() => LoginScreen());
+                  },
                 ),
               SizedBox(height: 50),
               if (onPressed == null)

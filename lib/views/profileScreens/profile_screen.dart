@@ -7,6 +7,7 @@ import 'package:chat_buddy/views/profileScreens/widgets/change_password_bottom_s
 import 'package:chat_buddy/views/profileScreens/widgets/custom_profile_icon.dart';
 import 'package:chat_buddy/views/profileScreens/widgets/destructive_action_dialog.dart';
 import 'package:chat_buddy/views/profileScreens/widgets/edit_profile_details_bottom_sheet.dart';
+import 'package:chat_buddy/views/authscreens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -110,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           label: 'Subscription Details',
                           leadingIcon: MdiIcons.piggyBankOutline,
                           onPressed: () {
-                            // Get.to(() => const SubscriptionDetailsScreen());
+                            Get.to(() => const SubscriptionDetailsScreen());
                           },
                         ),
                         const SizedBox(height: 10),
@@ -153,6 +154,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           label: 'Logout',
                           leadingIcon: MdiIcons.logout,
                           onPressed: () {
+                            Get.to(() => LoginScreen());
                             // userController.logoutUser();
                             //Todo: go to login page
                           },

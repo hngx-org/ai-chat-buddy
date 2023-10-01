@@ -1,3 +1,4 @@
+import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomProfileButton extends StatelessWidget {
@@ -23,8 +24,8 @@ class CustomProfileButton extends StatelessWidget {
         height: 60,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
-          side: const BorderSide(
-            color: Colors.purpleAccent,
+          side: BorderSide(
+            color: AppColors.buttonColor2,
             width: 2,
           ),
         ),

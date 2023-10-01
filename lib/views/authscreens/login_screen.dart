@@ -1,11 +1,14 @@
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/constants/app_widgets.dart';
+import 'package:chat_buddy/controller/user_controller.dart';
+import 'package:chat_buddy/helper/loading_widget.dart';
 import 'package:chat_buddy/views/authscreens/auth_screen_widgets.dart';
 import 'package:chat_buddy/views/authscreens/forgot_password.dart';
+import 'package:chat_buddy/views/authscreens/sign_up_screen.dart';
+import 'package:chat_buddy/views/chatscreens/landing_page_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,7 +19,10 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _passwordVisible = false;
+  UserController userController = Get.put(UserController());
 
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   void initState() {
     _passwordVisible;
@@ -43,9 +49,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 50,
                   ),
-                  const InfoFilelds(
+                  InfoFilelds(
                     hintText: 'Enter your email',
                     icon: Icon(Icons.person),
+                    controller: emailController,
                   ),
                   const SizedBox(
                     height: 30,
@@ -53,6 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   InfoFilelds(
                     obscureText: _passwordVisible,
                     hintText: "Enter your password",
+                    controller: passwordController,
                     icon: Icon(Icons.lock),
                     trailing: IconButton(
                       icon: Icon(_passwordVisible
@@ -69,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.centerRight,
                     child: TextButton(
                         onPressed: () {
-                          Get.to(ForgotPasswordPage());
+                          // Get.to(ForgotPasswordPage());
                         },
                         child: Text(
                           'Forgot Password?',
@@ -77,18 +85,30 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontSize: 15, color: AppColors.buttonColor2),
                         )),
                   ),
-                  const SizedBox(height: 30),
-                  const AuthScreenButtons(
-                    onTap: null,
-                    text: 'Login',
-                  ),
+                  const SizedBox(height: 50),
+                  AuthScreenButtons(
+                      text: 'Login',
+                      onTap: () async {
+                        final result = await loadToScreen(
+                          asyncComputation: () async =>
+                              await userController.loginUser(
+                                  email: emailController.text,
+                                  password: passwordController.text),
+                          context: context,
+                        );
+                        if (result == null) {
+                          Get.to(() => LandingScreen());
+                        } else {
+                          Get.snackbar('error', "Unable To Login");
+                        }
+                      }),
                   const SizedBox(
                     height: 100,
                   ),
                   InLineTexts(
                       firstText: 'Dont have an account?',
                       secondText: 'Sign Up',
-                      onpressed: null),
+                      onpressed: () => Get.to(SignUpScreen())),
                 ],
               ),
             ),

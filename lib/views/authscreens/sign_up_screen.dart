@@ -1,7 +1,10 @@
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/constants/app_widgets.dart';
+import 'package:chat_buddy/controller/user_controller.dart';
+import 'package:chat_buddy/helper/loading_widget.dart';
 import 'package:chat_buddy/views/authscreens/auth_screen_widgets.dart';
 import 'package:chat_buddy/views/authscreens/login_screen.dart';
+import 'package:chat_buddy/views/chatscreens/landing_page_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +17,11 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   bool _obscurePassword = false;
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  UserController userController = Get.put(UserController());
 
   @override
   void initState() {
@@ -41,16 +49,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 50,
                 ),
-                const InfoFilelds(
+                InfoFilelds(
                   hintText: 'Enter your Name',
                   icon: Icon(Icons.person),
+                  controller: nameController,
                 ),
                 const SizedBox(
                   height: 30,
                 ),
-                const InfoFilelds(
+                InfoFilelds(
                   hintText: "Enter your Email Address",
                   icon: Icon(Icons.email),
+                  controller: emailController,
                 ),
                 const SizedBox(
                   height: 30,
@@ -58,6 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 InfoFilelds(
                     obscureText: _obscurePassword,
                     hintText: "Enter your password",
+                    controller: passwordController,
                     icon: Icon(Icons.lock),
                     trailing: IconButton(
                         onPressed: () {
@@ -69,8 +80,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ? Icons.visibility
                             : Icons.visibility_off))),
                 const SizedBox(height: 30),
-                const AuthScreenButtons(
-                  onTap: null,
+                AuthScreenButtons(
+                  onTap: () async {
+                    final result = await loadToScreen(
+                      asyncComputation: () async =>
+                          await userController.signupUser(
+                              name: nameController.text,
+                              email: emailController.text,
+                              password: passwordController.text),
+                      context: context,
+                    );
+                    if (result == null) {
+                      Get.to(() => LandingScreen());
+                    } else {
+                      Get.snackbar('error', "Unable To Login");
+                    }
+                  },
                   text: 'Create Account',
                 ),
                 const SizedBox(
