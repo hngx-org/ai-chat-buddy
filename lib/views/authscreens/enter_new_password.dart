@@ -1,6 +1,9 @@
 import 'package:chat_buddy/constants/app_widgets.dart';
 import 'package:chat_buddy/views/authscreens/auth_screen_widgets.dart';
+import 'package:chat_buddy/views/chatscreens/chat_screen.dart';
+import 'package:chat_buddy/views/chatscreens/landing_page_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EnterNewPassword extends StatelessWidget {
   const EnterNewPassword({super.key});
@@ -35,7 +38,12 @@ class EnterNewPassword extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            AuthScreenButtons(text: 'Proceed to Login', onTap: null),
+            AuthScreenButtons(
+              text: 'Proceed to Login',
+              onTap: () {
+                Get.to(() => LandingScreen());
+              },
+            ),
           ],
         ),
       ),

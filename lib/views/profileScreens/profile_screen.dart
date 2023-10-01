@@ -110,7 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           label: 'Subscription Details',
                           leadingIcon: MdiIcons.piggyBankOutline,
                           onPressed: () {
-                            Get.to(() => const SubscriptionDetailsScreen());
+                            // Get.to(() => const SubscriptionDetailsScreen());
                           },
                         ),
                         const SizedBox(height: 10),
@@ -167,6 +167,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
-  
   }
 }

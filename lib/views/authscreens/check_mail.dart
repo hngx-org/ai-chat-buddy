@@ -1,6 +1,8 @@
 import 'package:chat_buddy/constants/app_widgets.dart';
 import 'package:chat_buddy/views/authscreens/auth_screen_widgets.dart';
+import 'package:chat_buddy/views/authscreens/enter_new_password.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CheckMail extends StatelessWidget {
   const CheckMail({super.key});
@@ -28,7 +30,12 @@ class CheckMail extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            AuthScreenButtons(text: 'Continue', onTap: null),
+            AuthScreenButtons(
+              text: 'Continue',
+              onTap: () {
+                Get.to(() => EnterNewPassword());
+              },
+            ),
           ],
         ),
       ),
