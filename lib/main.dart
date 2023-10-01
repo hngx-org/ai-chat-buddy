@@ -1,4 +1,6 @@
 import 'package:chat_buddy/constants/app_colors.dart';
+import 'package:chat_buddy/views/authscreens/login_screen.dart';
+import 'package:chat_buddy/views/authscreens/sign_up_screen.dart';
 import 'package:chat_buddy/views/profileScreens/profile_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const ProfileScreen(),
+      home: const SignUpScreen(),
     );
   }
 }

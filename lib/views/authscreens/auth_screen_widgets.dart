@@ -34,8 +34,17 @@ class ChatBuddyText extends StatelessWidget {
 
 class InfoFilelds extends StatelessWidget {
   final Widget? icon;
+
   final String hintText;
-  const InfoFilelds({required this.hintText, this.icon, super.key});
+
+  final Widget? trailing;
+  final bool obscureText;
+  const InfoFilelds(
+      {required this.hintText,
+      required this.icon,
+      this.trailing,
+      this.obscureText = false,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +52,15 @@ class InfoFilelds extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 3,
         height: MediaQuery.of(context).size.height / 12,
         decoration: BoxDecoration(
-          color: AppColors.tertiaryColor,
+          color: Colors.transparent,
+          border: Border.all(width: 3, color: AppColors.buttonColor2),
           borderRadius: BorderRadius.circular(15),
         ),
         child: ListTile(
           leading: icon,
-          iconColor: AppColors.buttonColor,
+          iconColor: AppColors.textColor,
           title: TextField(
+            obscureText: obscureText,
             style: TextStyle(color: AppColors.textColor),
             decoration: InputDecoration(
               border: InputBorder.none,
@@ -57,6 +68,7 @@ class InfoFilelds extends StatelessWidget {
               hintText: hintText,
             ),
           ),
+          trailing: trailing,
         ));
   }
 }
@@ -72,7 +84,8 @@ class AuthScreenButtons extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 3,
       height: MediaQuery.of(context).size.height / 12,
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 209, 175, 175),
+        color: Colors.transparent,
+        border: Border.all(width: 3, color: AppColors.buttonColor2),
         borderRadius: BorderRadius.circular(15),
       ),
       child: InkWell(
@@ -119,7 +132,7 @@ class InLineTexts extends StatelessWidget {
               secondText,
               style: TextStyle(
                   fontWeight: FontWeight.w400,
-                  color: AppColors.buttonColor,
+                  color: AppColors.buttonColor2,
                   fontSize: 17),
             ))
       ],
