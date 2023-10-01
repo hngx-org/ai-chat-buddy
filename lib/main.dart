@@ -1,16 +1,7 @@
 import 'package:chat_buddy/constants/app_colors.dart';
-<<<<<<< HEAD
 import 'package:chat_buddy/views/authscreens/login.dart';
 import 'package:chat_buddy/views/chatscreens/landing_page_screen.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 8b4fae042e0f333906dac0f7b8f4666a6dc93395
-=======
-import 'package:chat_buddy/views/profileScreens/profile_screen.dart';
->>>>>>> 36e2516b98e769a58214e148a8bae3e2583f6a40
->>>>>>> main
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,29 +20,24 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         appBarTheme: AppBarTheme(
-          color: Colors.transparent,
-          foregroundColor: AppColors.white,
-          iconTheme: IconThemeData(color: AppColors.white),
+          color: AppColors.primaryColor,
+          iconTheme: IconThemeData(color: AppColors.tertiaryColor),
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.light,
             statusBarColor: AppColors.primaryColor,
           ),
         ),
-
-        inputDecorationTheme: InputDecorationTheme(
-          hintStyle: TextStyle(
-            color: AppColors.textColor,
-          ),
-        ), //scaffoldBackgroundColor: Colors.transparent,
+        scaffoldBackgroundColor: Colors.transparent,
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> main
       home: GradientBackground(child: LandingScreen()),
+      initialRoute: '/',
+      routes: {
+        '/landingScreen': (context) =>
+            GradientBackground(child: const Center()),
+        '/homeScreen': (context) => GradientBackground(child: const Center()),
+      },
     );
   }
 }
@@ -83,9 +69,6 @@ class GradientBackground extends StatelessWidget {
         ),
         child: child,
       ),
-=======
-      home: const ProfileScreen(),
->>>>>>> 36e2516b98e769a58214e148a8bae3e2583f6a40
     );
   }
 }
