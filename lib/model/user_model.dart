@@ -10,6 +10,9 @@ class UserModel {
   String username;
   String password;
   DateTime _lastSubscription = DateTime.now();
+  DateTime _accountCreationTime = DateTime.now();
+
+  DateTime get accountCreationTime => _accountCreationTime;
 
   get lastSubscription => DateFormat.yMMMMEEEEd().format(_lastSubscription);
 
@@ -28,7 +31,7 @@ class UserModel {
   int checkSubscriptionDaysLeft() {
     if (_lastSubscription.difference(DateTime.now()) <=
         const Duration(days: 30)) {
-      return _lastSubscription.difference(DateTime.now()).inDays;
+      return _lastSubscription.difference(DateTime.now()).inDays + 30;
     }
     return 0;
   }
