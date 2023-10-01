@@ -28,7 +28,7 @@ class CheckMail extends StatelessWidget {
               icon: Icon(Icons.lock),
             ),
             SizedBox(
-              height: 30,
+              height: 50,
             ),
             AuthScreenButtons(
               text: 'Continue',

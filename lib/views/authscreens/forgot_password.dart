@@ -28,7 +28,7 @@ class ForgotPasswordPage extends StatelessWidget {
               icon: Icon(Icons.email),
             ),
             SizedBox(
-              height: 30,
+              height: 50,
             ),
             AuthScreenButtons(
               text: 'Send reset link',

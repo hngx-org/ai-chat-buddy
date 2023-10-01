@@ -63,15 +63,46 @@ class InfoFilelds extends StatelessWidget {
             obscureText: obscureText,
             style: TextStyle(color: AppColors.textColor),
             decoration: InputDecoration(
-              border: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              hintText: hintText,
-            ),
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                hintText: hintText,
+                hintStyle: TextStyle(color: AppColors.textColor)),
           ),
           trailing: trailing,
         ));
   }
 }
+
+// class AuthScreenButtons extends StatelessWidget {
+//   final String text;
+//   final Function()? onTap;
+//   const AuthScreenButtons({required this.text, required this.onTap, super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: MediaQuery.of(context).size.width * 3,
+//       height: MediaQuery.of(context).size.height / 12,
+//       decoration: BoxDecoration(
+//         color: Colors.transparent,
+//         border: Border.all(width: 3, color: AppColors.buttonColor2),
+//         borderRadius: BorderRadius.circular(15),
+//       ),
+//       child: InkWell(
+//         onTap: onTap,
+//         child: Center(
+//           child: Text(
+//             text,
+//             style: TextStyle(
+//                 fontSize: 18,
+//                 color: AppColors.white,
+//                 fontWeight: FontWeight.w400),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class AuthScreenButtons extends StatelessWidget {
   final String text;
@@ -80,26 +111,26 @@ class AuthScreenButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 3,
-      height: MediaQuery.of(context).size.height / 12,
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        border: Border.all(width: 3, color: AppColors.buttonColor2),
-        borderRadius: BorderRadius.circular(15),
+    return ElevatedButton(
+      onPressed: onTap,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.buttonColor2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50),
+        ),
+        maximumSize: Size(350, 48),
       ),
-      child: InkWell(
-        onTap: onTap,
-        child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-                fontSize: 18,
-                color: AppColors.white,
-                fontWeight: FontWeight.w400),
+      child: Center(
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 20,
+            color: AppColors.primaryColor,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),
+      // ),
     );
   }
 }

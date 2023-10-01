@@ -2,6 +2,7 @@ import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/constants/app_widgets.dart';
 import 'package:chat_buddy/views/authscreens/auth_screen_widgets.dart';
 import 'package:chat_buddy/views/authscreens/forgot_password.dart';
+import 'package:chat_buddy/views/chatscreens/landing_page_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -77,10 +78,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontSize: 15, color: AppColors.buttonColor2),
                         )),
                   ),
-                  const SizedBox(height: 30),
-                  const AuthScreenButtons(
-                    onTap: null,
+                  const SizedBox(height: 50),
+                  AuthScreenButtons(
                     text: 'Login',
+                    onTap: () {
+                      Get.to(() => LandingScreen());
+                    },
                   ),
                   const SizedBox(
                     height: 100,

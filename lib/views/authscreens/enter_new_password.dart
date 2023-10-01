@@ -14,37 +14,39 @@ class EnterNewPassword extends StatelessWidget {
         body: GradientBackground(
       child: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 150,
-            ),
-            ChatBuddyText(
-                largeText: 'Chat Buddy', smallText: 'Enter New Password?'),
-            SizedBox(
-              height: 40,
-            ),
-            InfoFilelds(
-              hintText: 'Enter New Password',
-              icon: Icon(Icons.lock),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            InfoFilelds(
-              hintText: 'Confirm Password ',
-              icon: Icon(Icons.email),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            AuthScreenButtons(
-              text: 'Proceed to Login',
-              onTap: () {
-                Get.to(() => LandingScreen());
-              },
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 150,
+              ),
+              ChatBuddyText(
+                  largeText: 'Chat Buddy', smallText: 'Enter New Password?'),
+              SizedBox(
+                height: 40,
+              ),
+              InfoFilelds(
+                hintText: 'Enter New Password',
+                icon: Icon(Icons.lock),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              InfoFilelds(
+                hintText: 'Confirm Password ',
+                icon: Icon(Icons.email),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              AuthScreenButtons(
+                text: 'Proceed to Login',
+                onTap: () {
+                  Get.to(() => LandingScreen());
+                },
+              ),
+            ],
+          ),
         ),
       ),
     ));
