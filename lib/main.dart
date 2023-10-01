@@ -1,9 +1,9 @@
 import 'package:chat_buddy/constants/app_colors.dart';
-import 'package:chat_buddy/views/authscreens/login.dart';
+// import 'package:chat_buddy/views/authscreens/login.dart';
 import 'package:chat_buddy/views/chatscreens/landing_page_screen.dart';
+import 'package:chat_buddy/views/chatscreens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -28,16 +28,16 @@ class MyApp extends StatelessWidget {
           ),
         ),
         scaffoldBackgroundColor: Colors.transparent,
-        useMaterial3: true,
+        useMaterial3: false,
       ),
-      debugShowCheckedModeBanner: false,
-      home: GradientBackground(child: LandingScreen()),
-      initialRoute: '/',
-      routes: {
-        '/landingScreen': (context) =>
-            GradientBackground(child: const Center()),
-        '/homeScreen': (context) => GradientBackground(child: const Center()),
-      },
+      debugShowCheckedModeBanner: true,
+      home: GradientBackground(child: OnboardingScreen()),
+      // initialRoute: '/',
+      // routes: {
+      //   '/landingScreen': (context) =>
+      //       GradientBackground(child: const Center()),
+      //   '/homeScreen': (context) => GradientBackground(child: const Center()),
+      // },
     );
   }
 }
@@ -53,9 +53,9 @@ class GradientBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-      ),
+      // appBar: AppBar(
+      //   title: const Text(''),
+      // ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(

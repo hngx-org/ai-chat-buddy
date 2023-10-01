@@ -1,4 +1,5 @@
 import 'package:chat_buddy/constants/app_colors.dart';
+import 'package:chat_buddy/views/authscreens/login_screen.dart';
 import 'package:chat_buddy/views/chatscreens/landing_page_screen.dart';
 import 'package:chat_buddy/views/chatscreens/chat_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,25 +23,27 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView(
-        controller: _controller,
-        children: [
-          OnboardingPage(
-            title: 'The Future of Chat is Here With AI Technology.',
-            description:
-                "it's easy when you have someone who is ready to listen to you and you can share your thoughts with.",
-            imagePath: 'lib/assets/onboarding.png',
-          ),
-          OnboardingPage(
-            title: 'ChatBuddy',
-            description: 'Ready to grow your life to the next level.',
-            imagePath: 'lib/assets/onboarding.png',
-            onPressed: () {
-              Get.to(() => ChatScreen());
-            },
-          ),
-        ],
+    return SafeArea(
+      child: Scaffold(
+        body: PageView(
+          controller: _controller,
+          children: [
+            OnboardingPage(
+              title: 'The Future of Chat is Here With AI Technology.',
+              description:
+                  "it's easy when you have someone who is ready to listen to you and you can share your thoughts with.",
+              imagePath: 'lib/assets/onboarding.png',
+            ),
+            OnboardingPage(
+              title: 'ChatBuddy',
+              description: 'Ready to grow your life to the next level.',
+              imagePath: 'lib/assets/onboarding.png',
+              onPressed: () {
+                Get.to(() => LoginScreen());
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:chat_buddy/constants/app_widgets.dart';
 import 'package:chat_buddy/views/chatscreens/chat_messages.dart';
 import 'package:chat_buddy/views/chatscreens/landing_page_screen.dart';
 import 'package:chat_buddy/views/chatscreens/onboarding_screen.dart';
+import 'package:chat_buddy/views/profileScreens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:get/get.dart';
@@ -89,38 +91,31 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [AppColors.secondaryColor, AppColors.primaryColor],
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Get.to(() => ProfileScreen());
+              },
+              child: CircleAvatar(
+                backgroundImage: AssetImage('lib/assets/avatar1.jpg'),
+              ),
+            ),
+            Text(
+              "Chat Buddy",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w400),
+            ),
+            SizedBox(width: 20),
+          ],
         ),
       ),
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Get.to(() => OnboardingScreen());
-                },
-                child: CircleAvatar(
-                  backgroundImage: AssetImage('lib/assets/avatar1.jpg'),
-                ),
-              ),
-              Text(
-                "Chat Buddy",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.w400),
-              ),
-              SizedBox(width: 20),
-            ],
-          ),
-        ),
-        body: Column(children: [
+      body: GradientBackground(
+        child: Column(children: [
           Expanded(
             child: ListView.builder(
               reverse: true,
