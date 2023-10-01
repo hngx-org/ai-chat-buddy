@@ -1,7 +1,9 @@
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/constants/app_widgets.dart';
 import 'package:chat_buddy/views/authscreens/auth_screen_widgets.dart';
+import 'package:chat_buddy/views/authscreens/forgot_password.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -40,7 +42,9 @@ class LoginScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => ForgotPasswordPage());
+                    },
                     child: Text(
                       'Forgot Password?',
                       style:

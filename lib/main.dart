@@ -1,7 +1,9 @@
 import 'package:chat_buddy/constants/app_colors.dart';
-import 'package:chat_buddy/views/profileScreens/profile_screen.dart';
-import 'package:flutter/services.dart';
+// import 'package:chat_buddy/views/authscreens/login.dart';
+import 'package:chat_buddy/views/chatscreens/landing_page_screen.dart';
+import 'package:chat_buddy/views/chatscreens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -18,24 +20,55 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         appBarTheme: AppBarTheme(
-          color: Colors.transparent,
-          foregroundColor: AppColors.white,
-          iconTheme: IconThemeData(color: AppColors.white),
+          color: AppColors.primaryColor,
+          iconTheme: IconThemeData(color: AppColors.tertiaryColor),
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.light,
             statusBarColor: AppColors.primaryColor,
           ),
         ),
-
-        inputDecorationTheme: InputDecorationTheme(
-          hintStyle: TextStyle(
-            color: AppColors.textColor,
-          ),
-        ), //scaffoldBackgroundColor: Colors.transparent,
-        useMaterial3: true,
+        scaffoldBackgroundColor: Colors.transparent,
+        useMaterial3: false,
       ),
-      debugShowCheckedModeBanner: false,
-      home: const ProfileScreen(),
+      debugShowCheckedModeBanner: true,
+      home: GradientBackground(child: OnboardingScreen()),
+      // initialRoute: '/',
+      // routes: {
+      //   '/landingScreen': (context) =>
+      //       GradientBackground(child: const Center()),
+      //   '/homeScreen': (context) => GradientBackground(child: const Center()),
+      // },
+    );
+  }
+}
+
+class GradientBackground extends StatelessWidget {
+  final Widget child;
+
+  const GradientBackground({
+    super.key,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: const Text(''),
+      // ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [
+              Color.fromARGB(255, 83, 31, 117),
+              Color.fromARGB(255, 18, 28, 136),
+            ],
+          ),
+        ),
+        child: child,
+      ),
     );
   }
 }
