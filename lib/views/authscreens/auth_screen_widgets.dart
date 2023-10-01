@@ -33,6 +33,8 @@ class ChatBuddyText extends StatelessWidget {
 }
 
 class InfoFilelds extends StatelessWidget {
+  final TextEditingController controller;
+
   final Widget? icon;
 
   final String hintText;
@@ -44,6 +46,7 @@ class InfoFilelds extends StatelessWidget {
       required this.icon,
       this.trailing,
       this.obscureText = false,
+      required this.controller,
       super.key});
 
   @override
@@ -61,6 +64,7 @@ class InfoFilelds extends StatelessWidget {
           iconColor: AppColors.textColor,
           title: TextField(
             obscureText: obscureText,
+            controller: controller,
             style: TextStyle(color: AppColors.textColor),
             decoration: InputDecoration(
                 border: InputBorder.none,
