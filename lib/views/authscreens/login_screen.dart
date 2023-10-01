@@ -2,7 +2,7 @@ import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/constants/app_widgets.dart';
 import 'package:chat_buddy/views/authscreens/auth_screen_widgets.dart';
 import 'package:chat_buddy/views/authscreens/forgot_password.dart';
-import 'package:chat_buddy/views/authscreens/sign_up_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 30,
                 ),
                 InfoFilelds(
-                  obscureText: _passwordVisible,
+          obscureText: _passwordVisible,
                   hintText: "Enter your password",
                   icon: Icon(Icons.lock),
                   trailing: IconButton(
@@ -91,9 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onpressed: null),
               ],
             ),
-          ),
-        ),
-      )),
-    );
+
+          
   }
 }

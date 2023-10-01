@@ -1,9 +1,6 @@
 import 'package:chat_buddy/constants/app_colors.dart';
-import 'package:chat_buddy/views/authscreens/login_screen.dart';
-import 'package:chat_buddy/views/authscreens/sign_up_screen.dart';
-import 'package:chat_buddy/views/profileScreens/profile_screen.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -20,24 +17,20 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         appBarTheme: AppBarTheme(
-          color: Colors.transparent,
-          foregroundColor: AppColors.white,
-          iconTheme: IconThemeData(color: AppColors.white),
+          color: AppColors.primaryColor,
+          iconTheme: IconThemeData(color: AppColors.tertiaryColor),
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.light,
             statusBarColor: AppColors.primaryColor,
           ),
         ),
-
-        inputDecorationTheme: InputDecorationTheme(
-          hintStyle: TextStyle(
-            color: AppColors.textColor,
-          ),
-        ), //scaffoldBackgroundColor: Colors.transparent,
-        useMaterial3: true,
+        scaffoldBackgroundColor: Colors.transparent,
+        useMaterial3: false,
       ),
-      debugShowCheckedModeBanner: false,
-      home: const SignUpScreen(),
+      debugShowCheckedModeBanner: true,
+      home: GradientBackground(child: OnboardingScreen()),
+     
     );
   }
 }
+
