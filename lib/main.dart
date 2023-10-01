@@ -1,10 +1,7 @@
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/views/authscreens/login.dart';
-<<<<<<< HEAD
 import 'package:chat_buddy/views/chatscreens/landing_page_screen.dart';
 import 'package:flutter/material.dart';
-=======
->>>>>>> 8b4fae042e0f333906dac0f7b8f4666a6dc93395
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,21 +31,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-<<<<<<< HEAD
       home: GradientBackground(child: LandingScreen()),
-      initialRoute: '/',
-      routes: {
-        '/landingScreen': (context) =>
-            GradientBackground(child: const Center()),
-        '/homeScreen': (context) => GradientBackground(child: const Center()),
-=======
-      home: const GradientBackground(child: LoginPage(child: Center())),
-      initialRoute: '/',
-      routes: {
-        '/loginScreen': (context) => const GradientBackground(child: Center()),
-        '/homeScreen': (context) => const GradientBackground(child: Center()),
->>>>>>> 8b4fae042e0f333906dac0f7b8f4666a6dc93395
-      },
     );
   }
 }

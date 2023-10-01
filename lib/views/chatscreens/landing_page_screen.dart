@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/views/chatscreens/chat_screen.dart';
+import 'package:get/get.dart';
 
 class LandingScreen extends StatelessWidget {
   @override
@@ -22,7 +23,7 @@ class LandingScreen extends StatelessWidget {
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w700,
-            color: Colors.white,
+            color: AppColors.white,
           ),
         ),
         SizedBox(
@@ -30,15 +31,10 @@ class LandingScreen extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ChatScreen(),
-              ),
-            );
+            Get.to(() => ChatScreen());
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFF18027A),
+            backgroundColor: AppColors.primaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50),
             ),
@@ -52,7 +48,7 @@ class LandingScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xffffffff),
+                  color: AppColors.white,
                 ),
               ),
             ),
