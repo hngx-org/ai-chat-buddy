@@ -3,6 +3,7 @@ import 'package:chat_buddy/views/authscreens/auth_screen_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/views/chatscreens/chat_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class LandingScreen extends StatelessWidget {
@@ -13,15 +14,16 @@ class LandingScreen extends StatelessWidget {
     return Scaffold(
       body: GradientBackground(
         child: Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15),
-            child: Column(children: [
-              SizedBox(
+          padding: const EdgeInsets.only(left: 15, right: 15),
+          child: Column(
+            children: [
+              const SizedBox(
                 height: 150,
               ),
-              CircleAvatar(
+              const CircleAvatar(
                   radius: 80,
                   backgroundImage: AssetImage('lib/assets/avatar1.jpg')),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Text(
@@ -32,8 +34,8 @@ class LandingScreen extends StatelessWidget {
                   color: AppColors.white,
                 ),
               ),
-              SizedBox(
-                height: 300,
+              const SizedBox(
+                height: 200,
               ),
               AuthScreenButtons(
                 text: 'Explore ChatBuddy',
@@ -41,7 +43,9 @@ class LandingScreen extends StatelessWidget {
                   Get.to(() => ChatScreen());
                 },
               ),
-            ])),
+            ],
+          ),
+        ),
       ),
     );
   }

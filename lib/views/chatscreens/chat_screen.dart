@@ -58,28 +58,35 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget _buildTextComposer() {
     return Padding(
-      padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
+      padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
       child: Row(
         children: [
           Expanded(
             child: TextField(
               controller: _controller,
               onSubmitted: (value) => _sendMessage(),
+              style: const TextStyle(
+                color: Colors.white,
+              ),
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.white30,
+                hintStyle: const TextStyle(
+                  color: Colors.white60,
+                ),
                 hintText: "Send a message",
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    borderSide: BorderSide.none),
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: BorderSide.none,
+                ),
               ),
             ),
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           CircleAvatar(
-            backgroundColor: Colors.blue,
+            backgroundColor: AppColors.receiverChatBubble,
             child: IconButton(
-              icon: Icon(Icons.send),
+              icon: const Icon(Icons.send),
               onPressed: () => _sendMessage(),
               color: Colors.white,
             ),
@@ -99,9 +106,9 @@ class _ChatScreenState extends State<ChatScreen> {
           children: [
             GestureDetector(
               onTap: () {
-                Get.to(() => ProfileScreen());
+                Get.to(() => const ProfileScreen());
               },
-              child: CircleAvatar(
+              child: const CircleAvatar(
                 backgroundImage: AssetImage('lib/assets/avatar1.jpg'),
               ),
             ),

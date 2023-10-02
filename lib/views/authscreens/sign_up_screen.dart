@@ -59,17 +59,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 InfoFilelds(
                   hintText: "Enter your Email Address",
-                  icon: Icon(Icons.email),
+                  icon: const Icon(Icons.email),
                   controller: emailController,
                 ),
                 const SizedBox(
                   height: 30,
                 ),
                 InfoFilelds(
-                    obscureText: _obscurePassword,
+                    obscureText: !_obscurePassword,
                     hintText: "Enter your password",
                     controller: passwordController,
-                    icon: Icon(Icons.lock),
+                    icon: const Icon(Icons.lock),
                     trailing: IconButton(
                         onPressed: () {
                           setState(() {
@@ -85,15 +85,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     final result = await loadToScreen(
                       asyncComputation: () async =>
                           await userController.signupUser(
-                              name: nameController.text,
-                              email: emailController.text,
-                              password: passwordController.text),
+                        name: nameController.text,
+                        email: emailController.text,
+                        password: passwordController.text,
+                      ),
                       context: context,
                     );
                     if (result == null) {
-                      Get.to(() => LandingScreen());
+                      Get.to(() => const LandingScreen());
                     } else {
-                      Get.snackbar('error', "Unable To Login");
+                      Get.snackbar(
+                        'Authentication Error',
+                        "Unable To Register User",
+                        colorText: Colors.red,
+                        margin: const EdgeInsets.all(10),
+                        duration: const Duration(seconds: 3),
+                      );
                     }
                   },
                   text: 'Create Account',
@@ -101,10 +108,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 60,
                 ),
-                const InLineTexts(
-                    firstText: 'Already have an account?',
-                    secondText: 'Login',
-                    onpressed: null)
+                InLineTexts(
+                  firstText: 'Already have an account?',
+                  secondText: 'Login',
+                  onpressed: () => Get.to(
+                    () => const LoginScreen(),
+                  ),
+                ),
               ],
             ),
           ),

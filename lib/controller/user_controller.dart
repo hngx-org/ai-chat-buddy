@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:chat_buddy/helper/loading_widget.dart';
 import 'package:get/get.dart';
 import 'package:chat_buddy/helper/auth_helper.dart';
 import 'package:chat_buddy/mock/user_data.dart';
@@ -43,14 +40,22 @@ class UserController extends GetxController {
     required String email,
     required String password,
   }) async {
-    final result = await authRepository.signIn(email, password);
-    if (result['error'] != 'Resource not Found') {
+    dynamic result;
+    try {
+      result = await authRepository.signIn(email, password);
+    } catch (_) {
+      return 'login error';
+    }
+    if (result != null) {
       // final data = json.decode(result.body);
-      print(result);
+      _user = UserModel(
+        username: result.name,
+        email: result.email,
+        password: password,
+      ).obs;
       return null;
     } else {
-      print('Login Error');
-      return 'eeeeeeeeee';
+      return 'login error';
     }
   }
 
@@ -60,13 +65,16 @@ class UserController extends GetxController {
     required String password,
   }) async {
     final result = await authRepository.signUp(email, name, password);
-    if (result['error'] != 'Bad Request') {
+    if (result != null) {
       // final data = json.decode(result.body);
-      print(result);
+      _user = UserModel(
+        username: result.name,
+        email: result.email,
+        password: password,
+      ).obs;
       return null;
     } else {
-      print(result);
-      return 'eeeeeeeeee';
+      return 'sign up error';
     }
   }
 

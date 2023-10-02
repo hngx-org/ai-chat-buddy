@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 30,
                   ),
                   InfoFilelds(
-                    obscureText: _passwordVisible,
+                    obscureText: !_passwordVisible,
                     hintText: "Enter your password",
                     controller: passwordController,
                     icon: Icon(Icons.lock),
@@ -73,42 +73,53 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                        onPressed: () {
-                          // Get.to(ForgotPasswordPage());
-                        },
-                        child: Text(
-                          'Forgot Password?',
-                          style: TextStyle(
-                              fontSize: 15, color: AppColors.buttonColor2),
-                        )),
-                  ),
+                  // INFO: Function not available in auth package
+                  // Align(
+                  //   alignment: Alignment.centerRight,
+                  //   child: TextButton(
+                  //       onPressed: () {
+                  //         // Get.to(ForgotPasswordPage());
+                  //       },
+                  //       child: Text(
+                  //         'Forgot Password?',
+                  //         style: TextStyle(
+                  //             fontSize: 15, color: AppColors.buttonColor2),
+                  //       )),
+                  // ),
                   const SizedBox(height: 50),
                   AuthScreenButtons(
-                      text: 'Login',
-                      onTap: () async {
-                        final result = await loadToScreen(
-                          asyncComputation: () async =>
-                              await userController.loginUser(
-                                  email: emailController.text,
-                                  password: passwordController.text),
-                          context: context,
+                    text: 'Login',
+                    onTap: () async {
+                      final result = await loadToScreen(
+                        asyncComputation: () async =>
+                            await userController.loginUser(
+                                email: emailController.text,
+                                password: passwordController.text),
+                        context: context,
+                      );
+                      if (result == null) {
+                        Get.to(() => const LandingScreen());
+                      } else {
+                        Get.snackbar(
+                          'Authentication Error',
+                          "User unable to login",
+                          colorText: Colors.red,
+                          margin: const EdgeInsets.all(10),
+                          duration: const Duration(seconds: 3),
                         );
-                        if (result == null) {
-                          Get.to(() => LandingScreen());
-                        } else {
-                          Get.snackbar('error', "Unable To Login");
-                        }
-                      }),
+                      }
+                    },
+                  ),
                   const SizedBox(
                     height: 100,
                   ),
                   InLineTexts(
-                      firstText: 'Dont have an account?',
-                      secondText: 'Sign Up',
-                      onpressed: () => Get.to(SignUpScreen())),
+                    firstText: 'Dont have an account?',
+                    secondText: 'Sign Up',
+                    onpressed: () => Get.to(
+                      () => const SignUpScreen(),
+                    ),
+                  ),
                 ],
               ),
             ),
