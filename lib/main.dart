@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.transparent,
           useMaterial3: false,
         ),
-        debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: false,
         home:
             // GradientBackground(child:
             OnboardingScreen());

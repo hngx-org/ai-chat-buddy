@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class CustomTextField extends StatefulWidget {
-  const CustomTextField({
+  CustomTextField({
     super.key,
     required this.label,
     required this.hint,
@@ -10,6 +10,7 @@ class CustomTextField extends StatefulWidget {
     required this.controller,
     this.autovalidateMode,
     this.isPassword = true,
+    this.focusNode,
     this.textInputType,
   });
 
@@ -20,6 +21,7 @@ class CustomTextField extends StatefulWidget {
   final TextInputType? textInputType;
   final TextEditingController controller;
   final bool isPassword;
+  FocusNode? focusNode = FocusNode();
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();

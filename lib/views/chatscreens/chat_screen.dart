@@ -2,15 +2,13 @@ import 'dart:async';
 
 import 'package:chat_buddy/constants/app_widgets.dart';
 import 'package:chat_buddy/views/chatscreens/chat_messages.dart';
-import 'package:chat_buddy/views/chatscreens/landing_page_screen.dart';
-import 'package:chat_buddy/views/chatscreens/onboarding_screen.dart';
 import 'package:chat_buddy/views/profileScreens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:get/get.dart';
 
 class ChatScreen extends StatefulWidget {
-  ChatScreen({super.key});
+  const ChatScreen({super.key});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -33,7 +31,7 @@ class _ChatScreenState extends State<ChatScreen> {
     _controller.clear();
 
 // Simulate ChatBuddy's response after a delay
-    Timer(Duration(seconds: 1), _getChatBuddyResponse);
+    Timer(const Duration(seconds: 1), _getChatBuddyResponse);
   }
 
   void _getChatBuddyResponse() {
@@ -112,12 +110,12 @@ class _ChatScreenState extends State<ChatScreen> {
                 backgroundImage: AssetImage('lib/assets/avatar1.jpg'),
               ),
             ),
-            Text(
+            const Text(
               "Chat Buddy",
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.w400),
             ),
-            SizedBox(width: 20),
+            const SizedBox(width: 20),
           ],
         ),
       ),
@@ -126,7 +124,7 @@ class _ChatScreenState extends State<ChatScreen> {
           Expanded(
             child: ListView.builder(
               reverse: true,
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               itemCount: _messages.length,
               itemBuilder: (context, index) {
                 return Align(
@@ -136,11 +134,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: Stack(
                     children: [
                       Container(
-                        constraints: BoxConstraints(maxWidth: 300),
-                        margin: EdgeInsets.symmetric(
+                        constraints: const BoxConstraints(maxWidth: 300),
+                        margin: const EdgeInsets.symmetric(
                           vertical: 4,
                         ),
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           vertical: 10,
                           horizontal: 16,
                         ),
@@ -149,14 +147,14 @@ class _ChatScreenState extends State<ChatScreen> {
                               ? AppColors.senderChatBubble
                               : AppColors.receiverChatBubble,
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(12),
-                            topRight: Radius.circular(12),
+                            topLeft: const Radius.circular(12),
+                            topRight: const Radius.circular(12),
                             bottomLeft: !_messages[index].isMe
-                                ? Radius.circular(0)
-                                : Radius.circular(12),
+                                ? const Radius.circular(0)
+                                : const Radius.circular(12),
                             bottomRight: _messages[index].isMe
-                                ? Radius.circular(0)
-                                : Radius.circular(12),
+                                ? const Radius.circular(0)
+                                : const Radius.circular(12),
                           ),
                         ),
                         child: _messages[index],
@@ -169,8 +167,9 @@ class _ChatScreenState extends State<ChatScreen> {
                             _toggleStar(index);
                           },
                           icon: _messages[index].isStarred
-                              ? Icon(Icons.star, color: Colors.yellow, size: 15)
-                              : Icon(Icons.star_border, size: 15),
+                              ? const Icon(Icons.star,
+                                  color: Colors.yellow, size: 15)
+                              : const Icon(Icons.star_border, size: 15),
                         ),
                       ),
                     ],

@@ -53,6 +53,15 @@ class _ChangePasswordBottomSheetState extends State<ChangePasswordBottomSheet> {
                 fontWeight: FontWeight.w500,
               ),
             ),
+            const SizedBox(height: 5),
+            const Text(
+              'Note: Currently working on this',
+              style: TextStyle(
+                color: Colors.white60,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
             const SizedBox(height: 10),
             Form(
               child: Column(

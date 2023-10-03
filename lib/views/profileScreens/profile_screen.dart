@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/constants/app_widgets.dart';
 import 'package:chat_buddy/controller/user_controller.dart';
 import 'package:chat_buddy/views/profileScreens/about_page.dart';
@@ -43,27 +44,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Column(
                       // shrinkWrap: true,
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: CachedNetworkImage(
-                            height: MediaQuery.of(context).size.height * 0.3,
-                            errorWidget: (context, url, error) => Center(
-                              child: Icon(
-                                MdiIcons.networkOff,
-                              ),
+                        CircleAvatar(
+                          backgroundColor: AppColors.buttonColor2,
+                          radius: 72,
+                          child: const CircleAvatar(
+                            backgroundImage: AssetImage(
+                              'lib/assets/img4.jpg',
                             ),
-                            progressIndicatorBuilder:
-                                (context, url, progress) => Center(
-                              child: SpinKitPulse(
-                                color: Colors.teal.shade800,
-                              ),
-                            ),
-                            //TODO: This guy is throwing error when data is off
-                            imageUrl:
-                                'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1961&q=80',
+                            backgroundColor: Colors.transparent,
+                            radius: 70,
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 10),
                         Obx(
                           () => Text(
                             userController.username,
@@ -132,7 +124,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           leadingIcon: MdiIcons.informationSlabCircleOutline,
                           onPressed: () {
                             Get.to(() => const AboutPage());
-                            //TODO: Go to the about screen
                           },
                         ),
                         const SizedBox(height: 10),
@@ -154,7 +145,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           label: 'Logout',
                           leadingIcon: MdiIcons.logout,
                           onPressed: () {
-                            Get.to(() => LoginScreen());
+                            Get.offUntil(
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreen(),
+                              ),
+                              (route) => false,
+                            );
                             // userController.logoutUser();
                             //Todo: go to login page
                           },
