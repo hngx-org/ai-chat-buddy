@@ -42,7 +42,8 @@ dependencies:
   flutter_spinkit: ^5.2.0
   intl: ^0.18.1
   flutter_credit_card: ^3.0.7
-  hng_authentication: ^0.0.3
+  hng_authentication: ^0.1.2
+  flutter_screenutil: ^5.9.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

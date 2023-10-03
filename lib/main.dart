@@ -1,5 +1,4 @@
 import 'package:chat_buddy/constants/app_colors.dart';
-import 'package:chat_buddy/constants/app_widgets.dart';
 import 'package:chat_buddy/views/chatscreens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,7 +19,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           appBarTheme: AppBarTheme(
             color: AppColors.primaryColor,
-            iconTheme: IconThemeData(color: AppColors.tertiaryColor),
+            foregroundColor: AppColors.white,
+            iconTheme: IconThemeData(color: AppColors.white),
             systemOverlayStyle: SystemUiOverlayStyle(
               statusBarIconBrightness: Brightness.light,
               statusBarColor: AppColors.primaryColor,
