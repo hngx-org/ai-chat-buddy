@@ -17,6 +17,8 @@ class _EditProfileDetailsBottomSheetState
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   UserController userController = Get.put(UserController());
+  FocusNode nameFNode = FocusNode();
+  FocusNode passwordFNode = FocusNode();
 
   @override
   void dispose() {
@@ -54,6 +56,15 @@ class _EditProfileDetailsBottomSheetState
             const SizedBox(height: 5),
             const Text(
               'Initial values are gotten from the current details',
+              style: TextStyle(
+                color: Colors.white60,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 5),
+            const Text(
+              'Note: This is only a local change',
               style: TextStyle(
                 color: Colors.white60,
                 fontSize: 12,

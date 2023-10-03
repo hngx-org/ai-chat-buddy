@@ -19,7 +19,6 @@ class UserController extends GetxController {
           ? 'Paid Account'
           : 'Free Account';
 
-  AuthHelper authHelper = AuthHelper();
   final authRepository = Authentication();
 
   updateLastSubscription() {
@@ -65,6 +64,12 @@ class UserController extends GetxController {
     required String password,
   }) async {
     final result = await authRepository.signUp(email, name, password);
+    // dynamic result;
+    // try {
+    //   result = await authRepository.signIn(email, password);
+    // } catch (_) {
+    //   return 'Signup error';
+    // }
     if (result != null) {
       // final data = json.decode(result.body);
       _user = UserModel(
