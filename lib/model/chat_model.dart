@@ -16,8 +16,8 @@ class ChatModel {
   late DateTime dateSent;
   //TODO: Convert this to time
   late DateTime timeSent;
-  bool? userSent;
-  bool? isStarred;
+  bool userSent;
+  bool isStarred;
 
   factory ChatModel.fromMap(Map<String, dynamic> chat) {
     return ChatModel(
