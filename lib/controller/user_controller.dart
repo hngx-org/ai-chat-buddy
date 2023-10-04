@@ -10,6 +10,8 @@ class UserController extends GetxController {
   final localDb = OfflineDatabase(dbName: userdb);
   late Rx<UserModel> _user;
 
+  String cookie = '';
+
   String accessToken = '';
 
   get username => _user.value.username;
@@ -55,6 +57,8 @@ class UserController extends GetxController {
         email: result.email,
         password: password,
       ).obs;
+      cookie = result.cookie;
+      print(cookie);
       await storeUser();
       return null;
     } else {
@@ -81,7 +85,11 @@ class UserController extends GetxController {
         email: result.email,
         password: password,
       ).obs;
-      await storeUser();
+
+      loginUser(
+        email: email,
+        password: password,
+      );
       return null;
     } else {
       return 'sign up error';

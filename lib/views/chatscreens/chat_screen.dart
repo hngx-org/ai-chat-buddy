@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:chat_buddy/constants/app_widgets.dart';
+import 'package:chat_buddy/controller/message_controller.dart';
+import 'package:chat_buddy/controller/user_controller.dart';
+import 'package:chat_buddy/model/chat_model.dart';
 import 'package:chat_buddy/views/chatscreens/chat_messages.dart';
 import 'package:chat_buddy/views/chatscreens/landing_page_screen.dart';
 import 'package:chat_buddy/views/chatscreens/onboarding_screen.dart';
@@ -18,39 +21,46 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
-  final List<ChatMessage> _messages = [];
+  List<ChatModel> _messages = [];
+  MessageController messageController = Get.put(MessageController());
+  UserController userController = Get.put(UserController());
 
   void _sendMessage() {
-    ChatMessage _message = ChatMessage(
-      text: _controller.text,
-      sender: "user",
-      isMe: true,
+    //TODO: I updated this code
+    messageController.sendMessage(
+      ChatModel(messageContent: _controller.text),
+      userController.cookie,
     );
+    // ChatMessage _message = ChatMessage(
+    //   text: _controller.text,
+    //   sender: "user",
+    //   isMe: true,
+    // );
 
-    setState(() {
-      _messages.insert(0, _message);
-    });
+    // setState(() {
+    //   _messages.insert(0, _message);
+    // });
     _controller.clear();
 
 // Simulate ChatBuddy's response after a delay
-    Timer(Duration(seconds: 1), _getChatBuddyResponse);
+    // Timer(Duration(seconds: 1), _getChatBuddyResponse);
   }
 
-  void _getChatBuddyResponse() {
-    ChatMessage chatBuddyMessage = ChatMessage(
-      text: "This is ChatBuddy. How can I help you?",
-      sender: "ChatBuddy",
-      isMe: false,
-    );
+  // void _getChatBuddyResponse() {
+  //   ChatMessage chatBuddyMessage = ChatMessage(
+  //     text: "This is ChatBuddy. How can I help you?",
+  //     sender: "ChatBuddy",
+  //     isMe: false,
+  //   );
 
-    setState(() {
-      _messages.insert(0, chatBuddyMessage);
-    });
-  }
+  //   setState(() {
+  //     _messages.insert(0, chatBuddyMessage);
+  //   });
+  // }
 
   void _toggleStar(int index) {
     setState(() {
-      _messages[index].isStarred = !_messages[index].isStarred;
+      _messages[index].isStarred = _messages[index].isStarred;
     });
   }
 
@@ -98,6 +108,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _messages = messageController.allChats;
     return Scaffold(
       // appBar: AppBar(
       //   automaticallyImplyLeading: false,
@@ -138,69 +149,76 @@ class _ChatScreenState extends State<ChatScreen> {
                     backgroundImage: AssetImage('lib/assets/img4.jpg'),
                   ),
                 ),
-                Text(
+                const Text(
                   "Chat Buddy",
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.w400),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
               ],
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              reverse: true,
-              padding: EdgeInsets.all(8),
-              itemCount: _messages.length,
-              itemBuilder: (context, index) {
-                return Align(
-                  alignment: _messages[index].isMe
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
-                  child: Stack(
-                    children: [
-                      Container(
-                        constraints: BoxConstraints(maxWidth: 300),
-                        margin: EdgeInsets.symmetric(
-                          vertical: 4,
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 16,
-                        ),
-                        decoration: BoxDecoration(
-                          color: _messages[index].isMe
-                              ? AppColors.senderChatBubble
-                              : AppColors.receiverChatBubble,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(12),
-                            topRight: Radius.circular(12),
-                            bottomLeft: !_messages[index].isMe
-                                ? Radius.circular(0)
-                                : Radius.circular(12),
-                            bottomRight: _messages[index].isMe
-                                ? Radius.circular(0)
-                                : Radius.circular(12),
+          Obx(
+            () => Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.all(8),
+                itemCount: _messages.length,
+                itemBuilder: (context, index) {
+                  final currentMessage = _messages[index];
+                  return Align(
+                    alignment: currentMessage.userSent
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
+                    child: Stack(
+                      children: [
+                        Container(
+                          constraints: const BoxConstraints(maxWidth: 300),
+                          margin: const EdgeInsets.symmetric(
+                            vertical: 4,
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 16,
+                          ),
+                          decoration: BoxDecoration(
+                            color: currentMessage.userSent
+                                ? AppColors.senderChatBubble
+                                : AppColors.receiverChatBubble,
+                            borderRadius: BorderRadius.only(
+                              topLeft: const Radius.circular(12),
+                              topRight: const Radius.circular(12),
+                              bottomLeft: currentMessage.userSent
+                                  ? const Radius.circular(0)
+                                  : const Radius.circular(12),
+                              bottomRight: currentMessage.userSent
+                                  ? const Radius.circular(0)
+                                  : const Radius.circular(12),
+                            ),
+                          ),
+                          child: ChatMessage(
+                            text: currentMessage.messageContent,
+                            sender: currentMessage.userSent ? 'User' : 'Buddy',
+                            isMe: currentMessage.userSent,
                           ),
                         ),
-                        child: _messages[index],
-                      ),
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: IconButton(
-                          onPressed: () {
-                            _toggleStar(index);
-                          },
-                          icon: _messages[index].isStarred
-                              ? Icon(Icons.star, color: Colors.yellow, size: 15)
-                              : Icon(Icons.star_border, size: 15),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: IconButton(
+                            onPressed: () {
+                              _toggleStar(index);
+                            },
+                            icon: currentMessage.isStarred
+                                ? const Icon(Icons.star,
+                                    color: Colors.yellow, size: 15)
+                                : const Icon(Icons.star_border, size: 15),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                );
-              },
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
           Container(

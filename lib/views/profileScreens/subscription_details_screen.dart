@@ -6,6 +6,7 @@ import 'package:chat_buddy/views/profileScreens/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:get/get.dart';
+import 'package:in_app_payment/in_app_payment.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SubscriptionDetailsScreen extends StatefulWidget {
@@ -23,6 +24,8 @@ class SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
   late MaskedTextController expiryDateController;
   TextEditingController cardHolderNameController = TextEditingController();
   late MaskedTextController cvvController;
+
+  final pay = HNGPay();
 
   @override
   void initState() {
@@ -97,13 +100,15 @@ class SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
       ),
       bottomSheet: InkWell(
         onTap: () {
-          if (userController.subscriptionLeft == 0) {
+          // userController.subscriptionLeft == 0
+          if (true) {
             Get.bottomSheet(
               PaymentBottomSheet(
                 cardNumberController: cardNumberController,
                 expiryDateController: expiryDateController,
                 cardHolderNameController: cardHolderNameController,
                 cvvController: cvvController,
+                payPortal: pay,
               ),
             );
           } else {
@@ -152,12 +157,14 @@ class PaymentBottomSheet extends StatelessWidget {
     required this.expiryDateController,
     required this.cardHolderNameController,
     required this.cvvController,
+    required this.payPortal,
   });
 
   final MaskedTextController cardNumberController;
   final MaskedTextController expiryDateController;
   final TextEditingController cardHolderNameController;
   final MaskedTextController cvvController;
+  final HNGPay payPortal;
 
   @override
   Widget build(BuildContext context) {
@@ -269,16 +276,18 @@ class PaymentBottomSheet extends StatelessWidget {
                 ),
                 MaterialButton(
                   visualDensity: VisualDensity.compact,
-                  onPressed: () {
+                  onPressed: () async {
                     //TODO: Implement payment here
-                    loadToScreen(
-                      asyncComputation: () => Future.delayed(
-                        const Duration(
-                          seconds: 3,
-                        ),
-                      ),
-                      context: context,
-                    );
+                    //TODO: Test this on an android
+                    // await payPortal.googlePay(amountToPay: '5');
+                    // loadToScreen(
+                    //   asyncComputation: () => Future.delayed(
+                    //     const Duration(
+                    //       seconds: 3,
+                    //     ),
+                    //   ),
+                    //   context: context,
+                    // );
                     Get.back();
                   },
                   textColor: Colors.white,
