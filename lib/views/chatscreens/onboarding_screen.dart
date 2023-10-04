@@ -30,14 +30,13 @@ class OnboardingScreen extends StatelessWidget {
           controller: _controller,
           children: [
             OnboardingPage(
-              title: 'The Future of Chat is Here With AI Technology.',
-              description:
-                  "it's easy when you have someone who is ready to listen to you and you can share your thoughts with.",
+              title: '',
+              description: "The Future of Chat is Here With AI Technology.",
               imagePath: 'lib/assets/onboarding.png',
             ),
             OnboardingPage(
               title: 'ChatBuddy',
-              description: 'Ready to grow your life to the next level.',
+              description: 'Your Personal AI ',
               imagePath: 'lib/assets/onboarding.png',
               onPressed: () {},
             ),

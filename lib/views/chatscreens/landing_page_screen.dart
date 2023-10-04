@@ -13,13 +13,13 @@ class LandingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GradientBackground(
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.only(left: 15, right: 15),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
-              const SizedBox(
-                height: 150,
-              ),
+              Spacer(),
               const CircleAvatar(
                   radius: 80,
                   backgroundImage: AssetImage('lib/assets/avatar1.jpg')),
@@ -34,8 +34,8 @@ class LandingScreen extends StatelessWidget {
                   color: AppColors.white,
                 ),
               ),
-              const SizedBox(
-                height: 200,
+              const Spacer(
+                flex: 2,
               ),
               AuthScreenButtons(
                 text: 'Explore ChatBuddy',
@@ -43,6 +43,7 @@ class LandingScreen extends StatelessWidget {
                   Get.to(() => ChatScreen());
                 },
               ),
+              Spacer(),
             ],
           ),
         ),
