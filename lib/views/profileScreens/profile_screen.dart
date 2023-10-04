@@ -82,6 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           label: 'Edit Profile Details',
                           leadingIcon: MdiIcons.bookEditOutline,
                           onPressed: () async {
+                            await userController.retrieveUser();
                             Get.bottomSheet(
                               const EditProfileDetailsBottomSheet(),
                               backgroundColor: Colors.transparent,

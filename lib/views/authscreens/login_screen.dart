@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   InfoFilelds(
                     hintText: 'Enter your email',
-                    icon: Icon(Icons.person),
+                    icon: Icon(Icons.email),
                     controller: emailController,
                   ),
                   const SizedBox(

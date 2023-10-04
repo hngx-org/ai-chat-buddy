@@ -63,6 +63,7 @@ class InfoFilelds extends StatelessWidget {
           leading: icon,
           iconColor: AppColors.textColor,
           title: TextField(
+            //focuseNode=> to vanish keyboard when anyother part of the screen is pressed.
             obscureText: obscureText,
             controller: controller,
             style: TextStyle(color: AppColors.textColor),
