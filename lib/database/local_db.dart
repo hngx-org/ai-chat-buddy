@@ -12,12 +12,13 @@ class OfflineDatabase {
     await Hive.box<E>(dbName).add(data);
   }
 
-  Future retrieveData<E>() async {
+  Future<List<E>> retrieveData<E>() async {
     final dataList = await Hive.box<E>(dbName);
 
     if (dataList.isNotEmpty) {
-      return dataList.values;
+      return dataList.values.toList();
     }
+    return [];
   }
 
   Future updateData<E>(E data, int index) async {

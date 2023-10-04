@@ -1,3 +1,5 @@
+import 'package:chat_buddy/constants/db_constants.dart';
+import 'package:chat_buddy/database/local_db.dart';
 import 'package:get/get.dart';
 import 'package:chat_buddy/helper/auth_helper.dart';
 import 'package:chat_buddy/mock/user_data.dart';
@@ -5,6 +7,7 @@ import 'package:chat_buddy/model/user_model.dart';
 import 'package:hng_authentication/authentication.dart';
 
 class UserController extends GetxController {
+  final localDb = OfflineDatabase(dbName: userdb);
   late Rx<UserModel> _user;
 
   String accessToken = '';
@@ -52,6 +55,7 @@ class UserController extends GetxController {
         email: result.email,
         password: password,
       ).obs;
+      await storeUser();
       return null;
     } else {
       return 'login error';
@@ -77,6 +81,7 @@ class UserController extends GetxController {
         email: result.email,
         password: password,
       ).obs;
+      await storeUser();
       return null;
     } else {
       return 'sign up error';
@@ -90,5 +95,16 @@ class UserController extends GetxController {
   logoutUser() async {
     userData.clear();
     await authRepository.logout(email);
+  }
+
+  Future<void> storeUser() async {
+    await localDb.addData<UserModel>(_user.value);
+  }
+
+  Future<void> retrieveUser() async {
+    final user = await localDb.retrieveData<UserModel>();
+    for (int i = 0; i < user.length; i++) {
+      print(user[i]);
+    }
   }
 }

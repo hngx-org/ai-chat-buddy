@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/home/ehi-j/snap/flutter/common/flutter"
-export "FLUTTER_APPLICATION_PATH=/home/ehi-j/Documents/Flutter Projects/HNG/ai-chat-buddy"
+export "FLUTTER_ROOT=C:\flutter"
+export "FLUTTER_APPLICATION_PATH=C:\Users\HP\Documents\Flutter\ai-chat-buddy"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"
