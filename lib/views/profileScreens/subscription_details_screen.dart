@@ -98,54 +98,56 @@ class SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
           ),
         ),
       ),
-      bottomSheet: InkWell(
-        onTap: () {
-          // userController.subscriptionLeft == 0
-          if (true) {
-            Get.bottomSheet(
-              PaymentBottomSheet(
-                cardNumberController: cardNumberController,
-                expiryDateController: expiryDateController,
-                cardHolderNameController: cardHolderNameController,
-                cvvController: cvvController,
-                payPortal: pay,
-              ),
-            );
-          } else {
-            Get.snackbar(
-              'Error',
-              'Please Wait for your subscription to end before re-subscribing',
-              colorText: AppColors.white,
-              duration: const Duration(seconds: 3),
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            );
-          }
-        },
-        child: Container(
-          height: 60,
-          width: MediaQuery.of(context).size.width,
-          color: AppColors.senderChatBubble,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Pay',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Icon(
-                MdiIcons.bankOutline,
-                color: AppColors.primaryColor,
-                size: 28,
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomSheet:
+          pay.googlePay(context, amountToPay: '3', userID: userController.id),
+      //  InkWell(
+      //   onTap: () {
+      //     // userController.subscriptionLeft == 0
+      //     if (true) {
+      //       Get.bottomSheet(
+      //         PaymentBottomSheet(
+      //           cardNumberController: cardNumberController,
+      //           expiryDateController: expiryDateController,
+      //           cardHolderNameController: cardHolderNameController,
+      //           cvvController: cvvController,
+      //           payPortal: pay,
+      //         ),
+      //       );
+      //     } else {
+      //       Get.snackbar(
+      //         'Error',
+      //         'Please Wait for your subscription to end before re-subscribing',
+      //         colorText: AppColors.white,
+      //         duration: const Duration(seconds: 3),
+      //         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      //       );
+      //     }
+      //   },
+      //   child: Container(
+      //     height: 60,
+      //     width: MediaQuery.of(context).size.width,
+      //     color: AppColors.senderChatBubble,
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: [
+      //         const Text(
+      //           'Pay',
+      //           style: TextStyle(
+      //             fontSize: 22,
+      //             fontWeight: FontWeight.w500,
+      //             color: Colors.white,
+      //           ),
+      //         ),
+      //         const SizedBox(width: 10),
+      //         Icon(
+      //           MdiIcons.bankOutline,
+      //           color: AppColors.primaryColor,
+      //           size: 28,
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

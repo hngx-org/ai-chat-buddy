@@ -13,6 +13,8 @@ class UserController extends GetxController {
 
   String accessToken = '';
 
+  String id = '';
+
   get username => _user.value.username;
   get email => _user.value.email;
   get subscriptionStatus => _user.value.checkSubscriptionState();
@@ -57,6 +59,7 @@ class UserController extends GetxController {
         password: password,
       ).obs;
       cookie = result.cookie;
+      id = result.id;
 
       await storeUser();
 
