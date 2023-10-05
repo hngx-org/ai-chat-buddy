@@ -118,6 +118,11 @@ class InfoFilelds extends StatelessWidget {
         prefixIcon: icon,
         prefixIconColor: AppColors.textColor,
         suffixIcon: trailing,
+        suffixIconColor: AppColors.textColor,
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(width: 3, color: AppColors.buttonColor2),
+          borderRadius: BorderRadius.circular(15),
+        ),
         border: OutlineInputBorder(
           borderSide: BorderSide(width: 3, color: AppColors.buttonColor2),
           borderRadius: BorderRadius.circular(15),

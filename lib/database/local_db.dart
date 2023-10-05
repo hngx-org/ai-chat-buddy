@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:hive_flutter/hive_flutter.dart';
 
 //generic class for Hive storage
@@ -25,10 +23,8 @@ class OfflineDatabase {
     await Hive.box<E>(dbName).putAt(index, data);
   }
 
-  Future deleteData<E>(E data, String? databaseName) async {
-    await Hive.box<E>(databaseName ?? dbName).keys.map((e) async =>
-        await Hive.box<E>(databaseName ?? dbName).get(e) == data
-            ? await Hive.box<E>(databaseName ?? dbName).delete(e)
-            : print(""));
+  Future deleteDatabase<E>({String? databaseName}) async {
+    await Hive.box<E>(databaseName ?? dbName)
+        .deleteAll(Hive.box<E>(databaseName ?? dbName).keys);
   }
 }

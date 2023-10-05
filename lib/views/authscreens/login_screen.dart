@@ -51,7 +51,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Form(
                     key: _formKey,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: Column(
                       children: [
                         InfoFilelds(

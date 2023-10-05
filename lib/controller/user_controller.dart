@@ -1,7 +1,6 @@
 import 'package:chat_buddy/constants/db_constants.dart';
 import 'package:chat_buddy/database/local_db.dart';
 import 'package:get/get.dart';
-import 'package:chat_buddy/helper/auth_helper.dart';
 import 'package:chat_buddy/mock/user_data.dart';
 import 'package:chat_buddy/model/user_model.dart';
 import 'package:hng_authentication/authentication.dart';
@@ -105,8 +104,8 @@ class UserController extends GetxController {
   logoutUser() async {
     userData.clear();
     await authRepository.logout(email);
-    await localDb.deleteData<UserModel>(_user.value, null);
-    await localDb.deleteData<bool>(true, onboardingDb);
+    await localDb.deleteDatabase<UserModel>();
+    await localDb.deleteDatabase<bool>(databaseName: onboardingDb);
   }
 
   Future<void> storeUser() async {

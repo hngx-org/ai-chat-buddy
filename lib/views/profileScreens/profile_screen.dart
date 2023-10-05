@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/constants/app_widgets.dart';
+import 'package:chat_buddy/controller/message_controller.dart';
 import 'package:chat_buddy/controller/user_controller.dart';
 import 'package:chat_buddy/views/profileScreens/about_page.dart';
 import 'package:chat_buddy/views/profileScreens/subscription_details_screen.dart';
@@ -23,6 +24,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   UserController userController = Get.put(UserController());
+  MessageController messageController = Get.put(MessageController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,7 +137,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Get.dialog(
                               DestructiveActionDialog(
                                 onYes: () {
-                                  //Todo: put the funnction for clearing chats
+                                  messageController.clearChatHistory();
+                                  Get.back();
                                 },
                               ),
                             );
@@ -145,15 +148,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         CustomProfileButton(
                           label: 'Logout',
                           leadingIcon: MdiIcons.logout,
-                          onPressed: () {
+                          onPressed: () async {
+                            await userController.logoutUser();
                             Get.offUntil(
                               MaterialPageRoute(
                                 builder: (context) => const LoginScreen(),
                               ),
                               (route) => false,
                             );
-                            // userController.logoutUser();
-                            //Todo: go to login page
                           },
                         ),
                       ],
