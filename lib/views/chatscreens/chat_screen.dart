@@ -12,6 +12,7 @@ import 'package:chat_buddy/views/profileScreens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ChatScreen extends StatefulWidget {
   ChatScreen({super.key});
@@ -136,54 +137,62 @@ class _ChatScreenState extends State<ChatScreen> {
                         final currentMessage = _messages[index];
                         return Align(
                           alignment: currentMessage.userSent
-                              ? Alignment.centerRight
-                              : Alignment.centerLeft,
-                          child: Stack(
+                              ? Alignment.bottomRight
+                              : Alignment.bottomLeft,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                constraints:
-                                    const BoxConstraints(maxWidth: 300),
-                                margin: const EdgeInsets.symmetric(
-                                  vertical: 4,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10,
-                                  horizontal: 16,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: currentMessage.userSent
-                                      ? AppColors.senderChatBubble
-                                      : AppColors.receiverChatBubble,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: const Radius.circular(12),
-                                    topRight: const Radius.circular(12),
-                                    bottomLeft: currentMessage.userSent
-                                        ? const Radius.circular(0)
-                                        : const Radius.circular(12),
-                                    bottomRight: currentMessage.userSent
-                                        ? const Radius.circular(0)
-                                        : const Radius.circular(12),
+                              Align(
+                                alignment: !currentMessage.userSent
+                                    ? Alignment.bottomLeft
+                                    : Alignment.bottomRight,
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7,
+                                  constraints:
+                                      const BoxConstraints(maxWidth: 700),
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 4,
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 10,
+                                    horizontal: 16,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: currentMessage.userSent
+                                        ? AppColors.senderChatBubble
+                                        : AppColors.receiverChatBubble,
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: const Radius.circular(12),
+                                      topRight: const Radius.circular(12),
+                                      bottomRight: currentMessage.userSent
+                                          ? const Radius.circular(0)
+                                          : const Radius.circular(12),
+                                      topLeft: currentMessage.userSent
+                                          ? const Radius.circular(12)
+                                          : const Radius.circular(0),
+                                    ),
+                                  ),
+                                  child: ChatMessage(
+                                    text: currentMessage.messageContent,
+                                    sender: currentMessage.userSent
+                                        ? 'User'
+                                        : 'Buddy',
+                                    isMe: currentMessage.userSent,
                                   ),
                                 ),
-                                child: ChatMessage(
-                                  text: currentMessage.messageContent,
-                                  sender: currentMessage.userSent
-                                      ? 'User'
-                                      : 'Buddy',
-                                  isMe: currentMessage.userSent,
-                                ),
                               ),
-                              Positioned(
-                                top: 0,
-                                right: 0,
-                                child: IconButton(
-                                  onPressed: () {
-                                    _toggleStar(index);
-                                  },
-                                  icon: currentMessage.isStarred
-                                      ? const Icon(Icons.star,
-                                          color: Colors.yellow, size: 15)
-                                      : const Icon(Icons.star_border, size: 15),
+                              Align(
+                                alignment: !currentMessage.userSent
+                                    ? Alignment.bottomLeft
+                                    : Alignment.bottomRight,
+                                child: Text(
+                                  DateFormat.Hm()
+                                      .format(currentMessage.timeSent),
+                                  style: TextStyle(
+                                    color: Colors.grey.shade300,
+                                    fontSize: 12,
+                                  ),
                                 ),
                               ),
                             ],
@@ -205,7 +214,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             ),
           ),
-          Container(
+          SizedBox(
             height: 60,
             child: _buildTextComposer(),
           ),

@@ -25,23 +25,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          appBarTheme: AppBarTheme(
-            color: AppColors.primaryColor,
-            foregroundColor: AppColors.white,
-            iconTheme: IconThemeData(color: AppColors.white),
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarIconBrightness: Brightness.light,
-              statusBarColor: AppColors.primaryColor,
-            ),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          color: AppColors.primaryColor,
+          foregroundColor: AppColors.white,
+          iconTheme: IconThemeData(color: AppColors.white),
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarIconBrightness: Brightness.light,
+            statusBarColor: AppColors.primaryColor,
           ),
-          scaffoldBackgroundColor: Colors.transparent,
-          useMaterial3: false,
         ),
-        debugShowCheckedModeBanner: false,
-        home:
-            // GradientBackground(child:
-            SplashScreen());
+        scaffoldBackgroundColor: Colors.transparent,
+        useMaterial3: false,
+      ),
+      debugShowCheckedModeBanner: false,
+      home:
+          // GradientBackground(child:
+          const SplashScreen(),
+    );
   }
 }

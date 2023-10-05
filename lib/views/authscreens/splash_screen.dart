@@ -13,30 +13,32 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final userController = Get.put(UserController());
     return Scaffold(
-        body: GradientBackground(
-            child: FutureBuilder(
-      future: Future(
-        () async {
-          final result = await userController.hasUserLoggedInBefore();
-          if (result == true) {
-            Get.to(LandingScreen());
-            return true;
-          } else {
-            Get.to(OnboardingScreen());
-            return true;
-          }
-        },
-      ),
-      builder: (context, snapshot) => Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ChatBuddyText(largeText: 'Chat Buddy', smallText: 'splash screen'),
-          SizedBox(
-            height: 10,
+      body: GradientBackground(
+        child: FutureBuilder(
+          future: Future(
+            () async {
+              final result = await userController.hasUserLoggedInBefore();
+              if (result == true) {
+                Get.to(() => const LandingScreen());
+                return true;
+              } else {
+                Get.to(() => OnboardingScreen());
+                return true;
+              }
+            },
           ),
-          CircularProgressIndicator()
-        ],
+          builder: (context, snapshot) => const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ChatBuddyText(largeText: 'Chat Buddy', smallText: ''),
+              SizedBox(
+                height: 10,
+              ),
+              CircularProgressIndicator()
+            ],
+          ),
+        ),
       ),
-    )));
+    );
   }
 }

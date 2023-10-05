@@ -1,4 +1,5 @@
-import 'package:chat_buddy/mock/message_data.dart';
+import 'dart:math';
+
 import 'package:get/get.dart';
 
 import 'package:chat_buddy/model/chat_model.dart';
@@ -26,16 +27,24 @@ class MessageController extends GetxController {
   Future<void> sendMessage(ChatModel newChat, String cookie) async {
     allChats.add(newChat);
     final response = await openAI.getChat(newChat.messageContent, cookie);
-    print(response);
     allChats.add(
       ChatModel(
-        messageContent: response
-            .replaceFirst('Message:', '')
-            .replaceFirst('Error:', '')
-            .trimLeft(),
+        messageContent: response.contains('Error: Subscription Required')
+            ? randomText()
+            : response.replaceFirst('Message:', '').trimLeft(),
         userSent: false,
       ),
     );
+  }
+
+  String randomText() {
+    int index = Random().nextInt(3);
+    final responses = [
+      'Whew, i\'ve grown quite tired of talking today. Make a subscription or lets continue the discussion tomorrow',
+      'Why don\'t we picked this up again when i\'ve rested',
+      'Give me a moment, i need to take a nap'
+    ];
+    return responses[index];
   }
 
   clearChatHistory() async {
