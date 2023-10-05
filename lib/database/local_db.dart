@@ -8,12 +8,12 @@ class OfflineDatabase {
 
   OfflineDatabase({required this.dbName});
 
-  Future addData<E>(E data) async {
-    await Hive.box<E>(dbName).add(data);
+  Future addData<E>(E data, String? databaseName) async {
+    await Hive.box<E>(databaseName ?? dbName).add(data);
   }
 
-  Future<List<E>> retrieveData<E>() async {
-    final dataList = await Hive.box<E>(dbName);
+  Future<List<E>> retrieveData<E>(String? databaseName) async {
+    final dataList = await Hive.box<E>(databaseName ?? dbName);
 
     if (dataList.isNotEmpty) {
       return dataList.values.toList();
@@ -25,10 +25,10 @@ class OfflineDatabase {
     await Hive.box<E>(dbName).putAt(index, data);
   }
 
-  Future deleteData<E>(E data) async {
-    await Hive.box<E>(dbName).keys.map((e) async =>
-        await Hive.box<E>(dbName).get(e) == data
-            ? await Hive.box<E>(dbName).delete(e)
+  Future deleteData<E>(E data, String? databaseName) async {
+    await Hive.box<E>(databaseName ?? dbName).keys.map((e) async =>
+        await Hive.box<E>(databaseName ?? dbName).get(e) == data
+            ? await Hive.box<E>(databaseName ?? dbName).delete(e)
             : print(""));
   }
 }
