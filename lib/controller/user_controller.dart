@@ -58,8 +58,10 @@ class UserController extends GetxController {
         password: password,
       ).obs;
       cookie = result.cookie;
-      print(cookie);
+
       await storeUser();
+
+      await localDb.addData(true, onboardingDb);
       return null;
     } else {
       return 'login error';
@@ -103,16 +105,29 @@ class UserController extends GetxController {
   logoutUser() async {
     userData.clear();
     await authRepository.logout(email);
+    await localDb.deleteData<UserModel>(_user.value, null);
+    await localDb.deleteData(true, onboardingDb);
   }
 
   Future<void> storeUser() async {
-    await localDb.addData<UserModel>(_user.value);
+    await localDb.addData<UserModel>(_user.value, null);
   }
 
-  Future<void> retrieveUser() async {
-    final user = await localDb.retrieveData<UserModel>();
-    for (int i = 0; i < user.length; i++) {
-      print(user[i]);
+  Future<UserModel> retrieveUser() async {
+    final user = await localDb.retrieveData<UserModel>(null);
+    return user.first;
+  }
+
+  Future<bool> hasUserLoggedInBefore() async {
+    final loginStateTemp = await localDb.retrieveData(onboardingDb);
+    bool? loginState = loginStateTemp.isEmpty ? null : true;
+
+    if (loginState == true) {
+      final user = await retrieveUser();
+
+      await loginUser(email: user.email, password: user.password);
+      return true;
     }
+    return false;
   }
 }

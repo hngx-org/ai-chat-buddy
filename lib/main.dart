@@ -1,6 +1,7 @@
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/constants/db_constants.dart';
 import 'package:chat_buddy/model/user_model.dart';
+import 'package:chat_buddy/views/authscreens/splash_screen.dart';
 import 'package:chat_buddy/views/chatscreens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +12,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserModelAdapter());
   await Hive.openBox<UserModel>(userdb);
+  await Hive.openBox(onboardingDb);
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(const MyApp());
@@ -40,6 +42,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home:
             // GradientBackground(child:
-            OnboardingScreen());
+            SplashScreen());
   }
 }
