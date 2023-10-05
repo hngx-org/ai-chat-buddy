@@ -1,8 +1,7 @@
-import 'package:chat_buddy/views/chatscreens/chat_screen.dart';
 import 'package:flutter/material.dart';
 
 class ChatMessage extends StatelessWidget {
-  ChatMessage({
+  const ChatMessage({
     super.key,
     required this.text,
     required this.sender,
@@ -13,23 +12,23 @@ class ChatMessage extends StatelessWidget {
   final String text;
   final String sender;
   final bool isMe;
-  bool isStarred;
+  final bool isStarred;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          margin: EdgeInsets.only(right: 16),
-          child: CircleAvatar(child: Text(sender[0])),
-        ),
+        // Container(
+        //   margin: EdgeInsets.only(right: 16),
+        //   child: CircleAvatar(child: Text(sender[0])),
+        // ),
         Expanded(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(sender, style: Theme.of(context).textTheme.titleMedium),
+            // Text(sender, style: Theme.of(context).textTheme.titleMedium),
             Container(
-              margin: EdgeInsets.only(top: 5.0),
+              margin: const EdgeInsets.only(top: 5.0),
               child: Text(text),
             )
           ],

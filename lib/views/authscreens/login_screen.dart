@@ -20,9 +20,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _passwordVisible = false;
   UserController userController = Get.put(UserController());
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  var _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     _passwordVisible;
@@ -42,35 +42,59 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 100,
                   ),
-                  ChatBuddyText(
+                  const ChatBuddyText(
                     largeText: "Chat Buddy",
                     smallText: "Please Login To Your Account",
                   ),
                   const SizedBox(
                     height: 50,
                   ),
-                  InfoFilelds(
-                    hintText: 'Enter your email',
-                    icon: Icon(Icons.email),
-                    controller: emailController,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  InfoFilelds(
-                    obscureText: !_passwordVisible,
-                    hintText: "Enter your password",
-                    controller: passwordController,
-                    icon: Icon(Icons.lock),
-                    trailing: IconButton(
-                      icon: Icon(_passwordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off),
-                      onPressed: () {
-                        setState(() {
-                          _passwordVisible = !_passwordVisible;
-                        });
-                      },
+                  Form(
+                    key: _formKey,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    child: Column(
+                      children: [
+                        InfoFilelds(
+                          hintText: 'Enter your email',
+                          icon: const Icon(Icons.email),
+                          validator: (value) {
+                            if (value != null && value.isEmail) {
+                              return null;
+                            } else {
+                              return 'input a valid email address';
+                            }
+                          },
+                          controller: emailController,
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        InfoFilelds(
+                          obscureText: !_passwordVisible,
+                          hintText: "Enter your password",
+                          controller: passwordController,
+                          validator: (value) {
+                            if (value != null && value.length > 8) {
+                              return null;
+                            } else if (value == null) {
+                              return 'input valid password';
+                            } else {
+                              return 'password should be at least 8 characters long';
+                            }
+                          },
+                          icon: const Icon(Icons.lock),
+                          trailing: IconButton(
+                            icon: Icon(_passwordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              setState(() {
+                                _passwordVisible = !_passwordVisible;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   // INFO: Function not available in auth package
@@ -90,23 +114,27 @@ class _LoginScreenState extends State<LoginScreen> {
                   AuthScreenButtons(
                     text: 'Login',
                     onTap: () async {
-                      final result = await loadToScreen(
-                        asyncComputation: () async =>
-                            await userController.loginUser(
-                                email: emailController.text,
-                                password: passwordController.text),
-                        context: context,
-                      );
-                      if (result == null) {
-                        Get.to(() => const LandingScreen());
-                      } else {
-                        Get.snackbar(
-                          'Authentication Error',
-                          "User unable to login",
-                          colorText: Colors.red,
-                          margin: const EdgeInsets.all(10),
-                          duration: const Duration(seconds: 3),
-                        );
+                      if (_formKey.currentState!.validate()) {
+                        {
+                          final result = await loadToScreen(
+                            asyncComputation: () async =>
+                                await userController.loginUser(
+                                    email: emailController.text,
+                                    password: passwordController.text),
+                            context: context,
+                          );
+                          if (result == null) {
+                            Get.to(() => const LandingScreen());
+                          } else {
+                            Get.snackbar(
+                              'Authentication Error',
+                              "User unable to login",
+                              colorText: Colors.red,
+                              margin: const EdgeInsets.all(10),
+                              duration: const Duration(seconds: 3),
+                            );
+                          }
+                        }
                       }
                     },
                   ),

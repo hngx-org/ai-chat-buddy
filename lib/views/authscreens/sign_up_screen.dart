@@ -22,6 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   UserController userController = Get.put(UserController());
+  var _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -42,65 +43,101 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 100,
                 ),
-                ChatBuddyText(
+                const ChatBuddyText(
                   largeText: "Chat Buddy",
                   smallText: "Create a New Account",
                 ),
                 const SizedBox(
                   height: 50,
                 ),
-                InfoFilelds(
-                  hintText: 'Enter your Name',
-                  icon: Icon(Icons.person),
-                  controller: nameController,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                InfoFilelds(
-                  hintText: "Enter your Email Address",
-                  icon: const Icon(Icons.email),
-                  controller: emailController,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                InfoFilelds(
-                    obscureText: !_obscurePassword,
-                    hintText: "Enter your password",
-                    controller: passwordController,
-                    icon: const Icon(Icons.lock),
-                    trailing: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _obscurePassword = !_obscurePassword;
-                          });
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      InfoFilelds(
+                        hintText: 'Enter your Name',
+                        icon: const Icon(Icons.person),
+                        validator: (value) {
+                          if (value != null && value.length > 3) {
+                            return null;
+                          } else if (value == null) {
+                            return 'input valid name';
+                          } else {
+                            return 'names should be at least 3 characters long';
+                          }
                         },
-                        icon: Icon(_obscurePassword
-                            ? Icons.visibility
-                            : Icons.visibility_off))),
+                        controller: nameController,
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      InfoFilelds(
+                        hintText: "Enter your Email Address",
+                        icon: const Icon(Icons.email),
+                        controller: emailController,
+                        validator: (value) {
+                          if (value != null && value.isEmail) {
+                            return null;
+                          } else {
+                            return 'input a valid email address';
+                          }
+                        },
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      InfoFilelds(
+                        obscureText: !_obscurePassword,
+                        hintText: "Enter your password",
+                        controller: passwordController,
+                        validator: (value) {
+                          if (value != null && value.length > 8) {
+                            return null;
+                          } else if (value == null) {
+                            return 'input valid password';
+                          } else {
+                            return 'password should be at least 8 characters long';
+                          }
+                        },
+                        icon: const Icon(Icons.lock),
+                        trailing: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
+                          icon: Icon(_obscurePassword
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 30),
                 AuthScreenButtons(
                   onTap: () async {
-                    final result = await loadToScreen(
-                      asyncComputation: () async =>
-                          await userController.signupUser(
-                        name: nameController.text,
-                        email: emailController.text,
-                        password: passwordController.text,
-                      ),
-                      context: context,
-                    );
-                    if (result == null) {
-                      Get.to(() => const LandingScreen());
-                    } else {
-                      Get.snackbar(
-                        'Authentication Error',
-                        "Unable To Register User",
-                        colorText: Colors.red,
-                        margin: const EdgeInsets.all(10),
-                        duration: const Duration(seconds: 3),
+                    if (_formKey.currentState!.validate()) {
+                      final result = await loadToScreen(
+                        asyncComputation: () async =>
+                            await userController.signupUser(
+                          name: nameController.text,
+                          email: emailController.text,
+                          password: passwordController.text,
+                        ),
+                        context: context,
                       );
+                      if (result == null) {
+                        Get.to(() => const LandingScreen());
+                      } else {
+                        Get.snackbar(
+                          'Authentication Error',
+                          "Unable To Register User",
+                          colorText: Colors.red,
+                          margin: const EdgeInsets.all(10),
+                          duration: const Duration(seconds: 3),
+                        );
+                      }
                     }
                   },
                   text: 'Create Account',

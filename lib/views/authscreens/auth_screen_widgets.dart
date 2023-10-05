@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 class ChatBuddyText extends StatelessWidget {
   final String largeText;
   final String smallText;
-  ChatBuddyText({required this.largeText, required this.smallText, super.key});
+  const ChatBuddyText(
+      {required this.largeText, required this.smallText, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       child: Column(children: [
         Text(
           largeText,
@@ -32,7 +33,67 @@ class ChatBuddyText extends StatelessWidget {
   }
 }
 
+// class InfoFilelds extends StatelessWidget {
+//   const InfoFilelds({
+//     required this.hintText,
+//     required this.icon,
+//     required this.validator,
+//     this.trailing,
+//     this.obscureText = false,
+//     required this.controller,
+//     super.key,
+//   });
+//   final TextEditingController controller;
+
+//   final Widget? icon;
+
+//   final String hintText;
+
+//   final Widget? trailing;
+//   final bool obscureText;
+//   final String? Function(String?) validator;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//         width: MediaQuery.of(context).size.width * 3,
+//         height: MediaQuery.of(context).size.height / 12,
+//         decoration: BoxDecoration(
+//           color: Colors.transparent,
+//           border: Border.all(width: 3, color: AppColors.buttonColor2),
+//           borderRadius: BorderRadius.circular(15),
+//         ),
+//         child: ListTile(
+//           leading: icon,
+//           iconColor: AppColors.textColor,
+//           title: TextFormField(
+//             validator: (value) {
+//               return validator(value);
+//             },
+//             obscureText: obscureText,
+//             controller: controller,
+//             style: TextStyle(color: AppColors.textColor),
+//             decoration: InputDecoration(
+//                 border: InputBorder.none,
+//                 focusedBorder: InputBorder.none,
+//                 hintText: hintText,
+//                 hintStyle: TextStyle(color: AppColors.textColor)),
+//           ),
+//           trailing: trailing,
+//         ));
+//   }
+// }
+
 class InfoFilelds extends StatelessWidget {
+  const InfoFilelds({
+    required this.hintText,
+    required this.icon,
+    required this.validator,
+    this.trailing,
+    this.obscureText = false,
+    required this.controller,
+    super.key,
+  });
   final TextEditingController controller;
 
   final Widget? icon;
@@ -41,40 +102,52 @@ class InfoFilelds extends StatelessWidget {
 
   final Widget? trailing;
   final bool obscureText;
-  const InfoFilelds(
-      {required this.hintText,
-      required this.icon,
-      this.trailing,
-      this.obscureText = false,
-      required this.controller,
-      super.key});
+  final String? Function(String?) validator;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: MediaQuery.of(context).size.width * 3,
-        height: MediaQuery.of(context).size.height / 12,
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          border: Border.all(width: 3, color: AppColors.buttonColor2),
+    return TextFormField(
+      validator: (value) {
+        return validator(value);
+      },
+      obscureText: obscureText,
+      controller: controller,
+      style: TextStyle(color: AppColors.textColor),
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(vertical: 24),
+        prefixIcon: icon,
+        prefixIconColor: AppColors.textColor,
+        suffixIcon: trailing,
+        border: OutlineInputBorder(
+          borderSide: BorderSide(width: 3, color: AppColors.buttonColor2),
           borderRadius: BorderRadius.circular(15),
         ),
-        child: ListTile(
-          leading: icon,
-          iconColor: AppColors.textColor,
-          title: TextField(
-            //focuseNode=> to vanish keyboard when anyother part of the screen is pressed.
-            obscureText: obscureText,
-            controller: controller,
-            style: TextStyle(color: AppColors.textColor),
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                hintText: hintText,
-                hintStyle: TextStyle(color: AppColors.textColor)),
-          ),
-          trailing: trailing,
-        ));
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(width: 3, color: AppColors.buttonColor2),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        filled: false,
+        hintText: hintText,
+        hintStyle: TextStyle(
+          color: AppColors.textColor,
+        ),
+      ),
+    );
+
+    // Container(
+    // width: MediaQuery.of(context).size.width * 3,
+    // height: MediaQuery.of(context).size.height / 12,
+    //     decoration: BoxDecoration(
+    //       color: Colors.transparent,
+    // border: Border.all(width: 3, color: AppColors.buttonColor2),
+    // borderRadius: BorderRadius.circular(15),
+    //     ),
+    //     child: ListTile(
+    //       leading: icon,
+    //       iconColor: AppColors.textColor,
+    //       title:
+    //       trailing: trailing,
+    //     ));
   }
 }
 
