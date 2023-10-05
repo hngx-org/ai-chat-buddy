@@ -12,7 +12,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserModelAdapter());
   await Hive.openBox<UserModel>(userdb);
-  await Hive.openBox(onboardingDb);
+  await Hive.openBox<bool>(onboardingDb);
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(const MyApp());

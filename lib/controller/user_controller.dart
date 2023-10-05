@@ -61,7 +61,7 @@ class UserController extends GetxController {
 
       await storeUser();
 
-      await localDb.addData(true, onboardingDb);
+      await localDb.addData<bool>(true, onboardingDb);
       return null;
     } else {
       return 'login error';
@@ -106,7 +106,7 @@ class UserController extends GetxController {
     userData.clear();
     await authRepository.logout(email);
     await localDb.deleteData<UserModel>(_user.value, null);
-    await localDb.deleteData(true, onboardingDb);
+    await localDb.deleteData<bool>(true, onboardingDb);
   }
 
   Future<void> storeUser() async {
@@ -119,7 +119,7 @@ class UserController extends GetxController {
   }
 
   Future<bool> hasUserLoggedInBefore() async {
-    final loginStateTemp = await localDb.retrieveData(onboardingDb);
+    final loginStateTemp = await localDb.retrieveData<bool>(onboardingDb);
     bool? loginState = loginStateTemp.isEmpty ? null : true;
 
     if (loginState == true) {

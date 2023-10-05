@@ -4,6 +4,7 @@ import 'package:chat_buddy/constants/app_widgets.dart';
 import 'package:chat_buddy/controller/message_controller.dart';
 import 'package:chat_buddy/controller/user_controller.dart';
 import 'package:chat_buddy/model/chat_model.dart';
+import 'package:chat_buddy/views/chatscreens/animation.dart';
 import 'package:chat_buddy/views/chatscreens/chat_messages.dart';
 import 'package:chat_buddy/views/chatscreens/landing_page_screen.dart';
 import 'package:chat_buddy/views/chatscreens/onboarding_screen.dart';
@@ -24,39 +25,24 @@ class _ChatScreenState extends State<ChatScreen> {
   List<ChatModel> _messages = [];
   MessageController messageController = Get.put(MessageController());
   UserController userController = Get.put(UserController());
+  bool isTyping = false;
 
-  void _sendMessage() {
+  void _sendMessage() async {
     //TODO: I updated this code
-    messageController.sendMessage(
+    setState(() {
+      isTyping = true;
+    });
+
+    await messageController.sendMessage(
       ChatModel(messageContent: _controller.text),
       userController.cookie,
     );
-    // ChatMessage _message = ChatMessage(
-    //   text: _controller.text,
-    //   sender: "user",
-    //   isMe: true,
-    // );
+    setState(() {
+      isTyping = false;
+    });
 
-    // setState(() {
-    //   _messages.insert(0, _message);
-    // });
     _controller.clear();
-
-// Simulate ChatBuddy's response after a delay
-    // Timer(Duration(seconds: 1), _getChatBuddyResponse);
   }
-
-  // void _getChatBuddyResponse() {
-  //   ChatMessage chatBuddyMessage = ChatMessage(
-  //     text: "This is ChatBuddy. How can I help you?",
-  //     sender: "ChatBuddy",
-  //     isMe: false,
-  //   );
-
-  //   setState(() {
-  //     _messages.insert(0, chatBuddyMessage);
-  //   });
-  // }
 
   void _toggleStar(int index) {
     setState(() {
@@ -110,28 +96,6 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     _messages = messageController.allChats;
     return Scaffold(
-      // appBar: AppBar(
-      //   automaticallyImplyLeading: false,
-      //   title: Row(
-      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //     children: [
-      //       GestureDetector(
-      //         onTap: () {
-      //           Get.to(() => const ProfileScreen());
-      //         },
-      //         child: const CircleAvatar(
-      //           backgroundImage: AssetImage('lib/assets/avatar1.jpg'),
-      //         ),
-      //       ),
-      //       Text(
-      //         "Chat Buddy",
-      //         style:
-      //             TextStyle(color: Colors.white, fontWeight: FontWeight.w400),
-      //       ),
-      //       SizedBox(width: 20),
-      //     ],
-      //   ),
-      // ),
       body: GradientBackground(
         child: Column(children: [
           AppBar(
@@ -160,64 +124,84 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
           Obx(
             () => Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.all(8),
-                itemCount: _messages.length,
-                itemBuilder: (context, index) {
-                  final currentMessage = _messages[index];
-                  return Align(
-                    alignment: currentMessage.userSent
-                        ? Alignment.centerRight
-                        : Alignment.centerLeft,
-                    child: Stack(
-                      children: [
-                        Container(
-                          constraints: const BoxConstraints(maxWidth: 300),
-                          margin: const EdgeInsets.symmetric(
-                            vertical: 4,
+              child: SingleChildScrollView(
+                primary: false,
+                child: Column(
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.all(8),
+                      itemCount: _messages.length,
+                      itemBuilder: (context, index) {
+                        final currentMessage = _messages[index];
+                        return Align(
+                          alignment: currentMessage.userSent
+                              ? Alignment.centerRight
+                              : Alignment.centerLeft,
+                          child: Stack(
+                            children: [
+                              Container(
+                                constraints:
+                                    const BoxConstraints(maxWidth: 300),
+                                margin: const EdgeInsets.symmetric(
+                                  vertical: 4,
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 10,
+                                  horizontal: 16,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: currentMessage.userSent
+                                      ? AppColors.senderChatBubble
+                                      : AppColors.receiverChatBubble,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: const Radius.circular(12),
+                                    topRight: const Radius.circular(12),
+                                    bottomLeft: currentMessage.userSent
+                                        ? const Radius.circular(0)
+                                        : const Radius.circular(12),
+                                    bottomRight: currentMessage.userSent
+                                        ? const Radius.circular(0)
+                                        : const Radius.circular(12),
+                                  ),
+                                ),
+                                child: ChatMessage(
+                                  text: currentMessage.messageContent,
+                                  sender: currentMessage.userSent
+                                      ? 'User'
+                                      : 'Buddy',
+                                  isMe: currentMessage.userSent,
+                                ),
+                              ),
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: IconButton(
+                                  onPressed: () {
+                                    _toggleStar(index);
+                                  },
+                                  icon: currentMessage.isStarred
+                                      ? const Icon(Icons.star,
+                                          color: Colors.yellow, size: 15)
+                                      : const Icon(Icons.star_border, size: 15),
+                                ),
+                              ),
+                            ],
                           ),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal: 16,
-                          ),
-                          decoration: BoxDecoration(
-                            color: currentMessage.userSent
-                                ? AppColors.senderChatBubble
-                                : AppColors.receiverChatBubble,
-                            borderRadius: BorderRadius.only(
-                              topLeft: const Radius.circular(12),
-                              topRight: const Radius.circular(12),
-                              bottomLeft: currentMessage.userSent
-                                  ? const Radius.circular(0)
-                                  : const Radius.circular(12),
-                              bottomRight: currentMessage.userSent
-                                  ? const Radius.circular(0)
-                                  : const Radius.circular(12),
-                            ),
-                          ),
-                          child: ChatMessage(
-                            text: currentMessage.messageContent,
-                            sender: currentMessage.userSent ? 'User' : 'Buddy',
-                            isMe: currentMessage.userSent,
-                          ),
-                        ),
-                        Positioned(
-                          top: 0,
-                          right: 0,
-                          child: IconButton(
-                            onPressed: () {
-                              _toggleStar(index);
-                            },
-                            icon: currentMessage.isStarred
-                                ? const Icon(Icons.star,
-                                    color: Colors.yellow, size: 15)
-                                : const Icon(Icons.star_border, size: 15),
-                          ),
-                        ),
-                      ],
+                        );
+                      },
                     ),
-                  );
-                },
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: TypingIndicator(
+                        showIndicator: isTyping,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
