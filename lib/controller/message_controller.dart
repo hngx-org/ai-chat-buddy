@@ -24,6 +24,27 @@ class MessageController extends GetxController {
     //TODO: Work on this
   }
 
+  // Future<void> sendMessage(ChatModel newChat, String cookie) async {
+  //   allChats.add(newChat);
+  //   final response = await openAI.getChat(newChat.messageContent, cookie);
+  //   allChats.add(
+  //     ChatModel(
+  //       messageContent: response.contains('Error: Subscription Required')
+  //           ? randomText()
+  //           : response.replaceFirst('Message:', '').trimLeft(),
+  //       userSent: false,
+  //     ),
+  //   );
+  // }
+
+  String randomText() {
+    int index = Random().nextInt(1);
+    final responses = [
+      'You have reached your limit for the day, Kindly Subscribe to continue',
+    ];
+    return responses[index];
+  }
+
   Future<void> sendMessage(ChatModel newChat, String cookie) async {
     allChats.add(newChat);
     final response = await openAI.getChat(newChat.messageContent, cookie);
@@ -31,20 +52,16 @@ class MessageController extends GetxController {
       ChatModel(
         messageContent: response.contains('Error: Subscription Required')
             ? randomText()
-            : response.replaceFirst('Message:', '').trimLeft(),
+            : response.contains('Error:')
+                ? randomTextTwo()
+                : response.replaceFirst('Message:', '').trimLeft(),
         userSent: false,
       ),
     );
   }
 
-  String randomText() {
-    int index = Random().nextInt(3);
-    final responses = [
-      'Whew, i\'ve grown quite tired of talking today. Make a subscription or lets continue the discussion tomorrow',
-      'Why don\'t we picked this up again when i\'ve rested',
-      'Give me a moment, i need to take a nap'
-    ];
-    return responses[index];
+  String randomTextTwo() {
+    return 'Server is currently down';
   }
 
   clearChatHistory() async {

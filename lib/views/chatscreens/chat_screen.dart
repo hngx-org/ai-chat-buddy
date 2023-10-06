@@ -27,6 +27,7 @@ class _ChatScreenState extends State<ChatScreen> {
   MessageController messageController = Get.put(MessageController());
   UserController userController = Get.put(UserController());
   bool isTyping = false;
+  final FocusNode _focusNode = FocusNode();
 
   void _sendMessage() async {
     //TODO: I updated this code
@@ -60,6 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
         children: [
           Expanded(
             child: TextField(
+              focusNode: _focusNode,
               controller: _controller,
               onSubmitted: (value) => _sendMessage(),
               style: const TextStyle(
@@ -84,7 +86,7 @@ class _ChatScreenState extends State<ChatScreen> {
             backgroundColor: AppColors.receiverChatBubble,
             child: IconButton(
               icon: const Icon(Icons.send),
-              onPressed: () => _sendMessage(),
+              onPressed: isTyping ? null : () => _sendMessage(),
               color: Colors.white,
             ),
           ),
@@ -98,127 +100,124 @@ class _ChatScreenState extends State<ChatScreen> {
     _messages = messageController.allChats;
     return Scaffold(
       body: GradientBackground(
-        child: Column(children: [
-          AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            automaticallyImplyLeading: false,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.to(() => const ProfileScreen());
-                  },
-                  child: const CircleAvatar(
-                    backgroundImage: AssetImage('lib/assets/img4.jpg'),
+        child: GestureDetector(
+          onTap: () {
+            _focusNode.unfocus();
+          },
+          child: Column(children: [
+            AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              automaticallyImplyLeading: false,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => const ProfileScreen());
+                    },
+                    child: const CircleAvatar(
+                      backgroundImage: AssetImage('lib/assets/img4.jpg'),
+                    ),
                   ),
-                ),
-                const Text(
-                  "Chat Buddy",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w400),
-                ),
-                const SizedBox(width: 20),
-              ],
+                  const Text(
+                    "Chat Buddy",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w400),
+                  ),
+                  const SizedBox(width: 20),
+                ],
+              ),
             ),
-          ),
-          Obx(
-            () => Expanded(
+            Expanded(
               child: SingleChildScrollView(
-                primary: false,
-                child: Column(
-                  children: [
-                    ListView.builder(
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.all(8),
-                      itemCount: _messages.length,
-                      itemBuilder: (context, index) {
-                        final currentMessage = _messages[index];
-                        return Align(
-                          alignment: currentMessage.userSent
-                              ? Alignment.bottomRight
-                              : Alignment.bottomLeft,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Align(
-                                alignment: !currentMessage.userSent
-                                    ? Alignment.bottomLeft
-                                    : Alignment.bottomRight,
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  constraints:
-                                      const BoxConstraints(maxWidth: 700),
-                                  margin: const EdgeInsets.symmetric(
-                                    vertical: 4,
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 10,
-                                    horizontal: 16,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: currentMessage.userSent
-                                        ? AppColors.senderChatBubble
-                                        : AppColors.receiverChatBubble,
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: const Radius.circular(12),
-                                      topRight: const Radius.circular(12),
-                                      bottomRight: currentMessage.userSent
-                                          ? const Radius.circular(0)
-                                          : const Radius.circular(12),
-                                      topLeft: currentMessage.userSent
-                                          ? const Radius.circular(12)
-                                          : const Radius.circular(0),
-                                    ),
-                                  ),
-                                  child: ChatMessage(
-                                    text: currentMessage.messageContent,
-                                    sender: currentMessage.userSent
-                                        ? 'User'
-                                        : 'Buddy',
-                                    isMe: currentMessage.userSent,
+                reverse: true, // Set reverse to true
+                child: Obx(
+                  () => ListView.builder(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.all(8),
+                    itemCount: _messages.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      final currentMessage = _messages[index];
+                      return Align(
+                        alignment: currentMessage.userSent
+                            ? Alignment.bottomRight
+                            : Alignment.bottomLeft,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: !currentMessage.userSent
+                                  ? Alignment.bottomLeft
+                                  : Alignment.bottomRight,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.7,
+                                constraints:
+                                    const BoxConstraints(maxWidth: 700),
+                                margin: const EdgeInsets.symmetric(
+                                  vertical: 4,
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 10,
+                                  horizontal: 16,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: currentMessage.userSent
+                                      ? AppColors.senderChatBubble
+                                      : AppColors.receiverChatBubble,
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: const Radius.circular(12),
+                                    topRight: const Radius.circular(12),
+                                    bottomRight: currentMessage.userSent
+                                        ? const Radius.circular(0)
+                                        : const Radius.circular(12),
+                                    topLeft: currentMessage.userSent
+                                        ? const Radius.circular(12)
+                                        : const Radius.circular(0),
                                   ),
                                 ),
-                              ),
-                              Align(
-                                alignment: !currentMessage.userSent
-                                    ? Alignment.bottomLeft
-                                    : Alignment.bottomRight,
-                                child: Text(
-                                  DateFormat.Hm()
-                                      .format(currentMessage.timeSent),
-                                  style: TextStyle(
-                                    color: Colors.grey.shade300,
-                                    fontSize: 12,
-                                  ),
+                                child: ChatMessage(
+                                  text: currentMessage.messageContent,
+                                  sender: currentMessage.userSent
+                                      ? 'User'
+                                      : 'Buddy',
+                                  isMe: currentMessage.userSent,
                                 ),
                               ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: TypingIndicator(
-                        showIndicator: isTyping,
-                      ),
-                    ),
-                  ],
+                            ),
+                            Align(
+                              alignment: !currentMessage.userSent
+                                  ? Alignment.bottomLeft
+                                  : Alignment.bottomRight,
+                              child: Text(
+                                DateFormat.Hm().format(currentMessage.timeSent),
+                                style: TextStyle(
+                                  color: Colors.grey.shade300,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 60,
-            child: _buildTextComposer(),
-          ),
-        ]),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: TypingIndicator(
+                showIndicator: isTyping,
+              ),
+            ),
+            SizedBox(
+              height: 60,
+              child: _buildTextComposer(),
+            ),
+          ]),
+        ),
       ),
     );
   }
