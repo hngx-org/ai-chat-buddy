@@ -30,20 +30,21 @@ class _ChatScreenState extends State<ChatScreen> {
   final FocusNode _focusNode = FocusNode();
 
   void _sendMessage() async {
-    //TODO: I updated this code
-    setState(() {
-      isTyping = true;
-    });
+    if (_controller.text.isNotEmpty) {
+      setState(() {
+        isTyping = true;
+      });
 
-    await messageController.sendMessage(
-      ChatModel(messageContent: _controller.text),
-      userController.cookie,
-    );
-    setState(() {
-      isTyping = false;
-    });
+      await messageController.sendMessage(
+        ChatModel(messageContent: _controller.text),
+        userController.cookie,
+      );
 
-    _controller.clear();
+      setState(() {
+        isTyping = false;
+        _controller.clear();
+      });
+    }
   }
 
   void _toggleStar(int index) {
@@ -51,8 +52,6 @@ class _ChatScreenState extends State<ChatScreen> {
       _messages[index].isStarred = _messages[index].isStarred;
     });
   }
-
-  // ChatMessage AImessage = ChatMessage(text: response!.text, sender: "ChatBuddy");
 
   Widget _buildTextComposer() {
     return Padding(
@@ -137,7 +136,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     shrinkWrap: true,
                     padding: const EdgeInsets.all(8),
                     itemCount: _messages.length,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       final currentMessage = _messages[index];
                       return Align(
