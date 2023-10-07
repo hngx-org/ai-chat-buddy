@@ -1,5 +1,6 @@
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/constants/app_widgets.dart';
+import 'package:chat_buddy/controller/message_controller.dart';
 import 'package:chat_buddy/controller/user_controller.dart';
 import 'package:chat_buddy/helper/loading_widget.dart';
 import 'package:chat_buddy/views/authscreens/auth_screen_widgets.dart';
@@ -22,6 +23,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   UserController userController = Get.put(UserController());
+  final messageController = Get.put(MessageController());
   var _formKey = GlobalKey<FormState>();
 
   @override
@@ -128,6 +130,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         context: context,
                       );
                       if (result == null) {
+                        await messageController.clearChatHistory();
                         Get.to(() => const LandingScreen());
                       } else {
                         Get.snackbar(
