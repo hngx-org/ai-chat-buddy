@@ -1,13 +1,11 @@
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/constants/app_widgets.dart';
 import 'package:chat_buddy/controller/user_controller.dart';
-import 'package:chat_buddy/helper/loading_widget.dart';
 import 'package:chat_buddy/views/profileScreens/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:get/get.dart';
 import 'package:in_app_payment/in_app_payment.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SubscriptionDetailsScreen extends StatefulWidget {
   const SubscriptionDetailsScreen({super.key});

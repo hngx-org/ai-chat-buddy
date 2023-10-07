@@ -1,13 +1,8 @@
 import 'package:chat_buddy/constants/app_colors.dart';
 import 'package:chat_buddy/constants/db_constants.dart';
+import 'package:chat_buddy/model/chat_model.dart';
 import 'package:chat_buddy/model/user_model.dart';
-import 'package:chat_buddy/views/authscreens/login_screen.dart';
-import 'package:chat_buddy/views/authscreens/sign_up_screen.dart';
 import 'package:chat_buddy/views/authscreens/splash_screen.dart';
-import 'package:chat_buddy/views/chatscreens/chat_screen.dart';
-import 'package:chat_buddy/views/chatscreens/landing_page_screen.dart';
-import 'package:chat_buddy/views/chatscreens/onboarding_screen.dart';
-import 'package:chat_buddy/views/profileScreens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -16,7 +11,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserModelAdapter());
+  Hive.registerAdapter(ChatModelAdapter());
   await Hive.openBox<UserModel>(userdb);
+  await Hive.openBox<ChatModel>(messagedb);
   await Hive.openBox<bool>(onboardingDb);
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -47,7 +44,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home:
           // GradientBackground(child:
-          SplashScreen(),
+          const SplashScreen(),
     );
   }
 }
