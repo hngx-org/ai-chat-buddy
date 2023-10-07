@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: "Enter your password",
                           controller: passwordController,
                           validator: (value) {
-                            if (value != null && value.length > 8) {
+                            if (value != null && value.length >= 8) {
                               return null;
                             } else if (value == null) {
                               return 'input valid password';

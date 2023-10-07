@@ -133,11 +133,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         CustomProfileButton(
                           label: 'Clear Chat History',
                           leadingIcon: MdiIcons.deleteForeverOutline,
-                          onPressed: () {
+                          onPressed: ()async{
                             Get.dialog(
                               DestructiveActionDialog(
-                                onYes: () {
-                                  messageController.clearChatHistory();
+                                onYes: () async{
+                                  await messageController.clearChatHistory();
                                   Get.back();
                                 },
                               ),

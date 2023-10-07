@@ -1,3 +1,8 @@
+import 'package:hive_flutter/hive_flutter.dart';
+
+part 'chat_model.g.dart';
+
+@HiveType(typeId: 2)
 class ChatModel {
   ChatModel({
     required this.messageContent,
@@ -9,14 +14,17 @@ class ChatModel {
     timeSent = DateTime.now();
   }
 
-  
+  @HiveField(0)
   String? messageHeader;
+  @HiveField(1)
   String messageContent;
-  //TODO: Convert this to date time and year
+  @HiveField(2)
   late DateTime dateSent;
-  //TODO: Convert this to time
+  @HiveField(3)
   late DateTime timeSent;
+  @HiveField(4)
   bool userSent;
+  @HiveField(5)
   bool isStarred;
 
   factory ChatModel.fromMap(Map<String, dynamic> chat) {
